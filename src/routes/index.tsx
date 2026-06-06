@@ -1,29 +1,52 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { MarqueeSkills } from "@/components/MarqueeSkills";
+import { About } from "@/components/About";
+import { Services } from "@/components/Services";
+import { Work } from "@/components/Work";
+import { Process } from "@/components/Process";
+import { Testimonials } from "@/components/Testimonials";
+import { Contact } from "@/components/Contact";
+import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Aryan Patel — Website Developer & Freelancer" },
+      {
+        name: "description",
+        content:
+          "Aryan Patel — 4+ years building high-performance, conversion-focused websites for content creators, brands, and visionaries worldwide.",
+      },
+      { property: "og:title", content: "Aryan Patel — Website Developer & Freelancer" },
+      {
+        property: "og:description",
+        content:
+          "High-performance websites for content creators & growing brands. 4+ years experience.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background text-foreground">
+      <Navbar />
+      <main>
+        <Hero />
+        <MarqueeSkills />
+        <About />
+        <Services />
+        <Work />
+        <Process />
+        <Testimonials />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   );
 }
