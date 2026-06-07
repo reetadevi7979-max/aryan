@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
 import { Sparkles } from "lucide-react";
+import logo from "@/assets/logo.png.asset.json";
 
 function Counter({ to, suffix = "+" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -97,15 +98,11 @@ export function About() {
                     "radial-gradient(circle at 30% 30%, oklch(0.65 0.22 250 / 0.22), transparent 50%)",
                 }}
               />
-              <div
-                className="relative z-10 font-black tracking-[-0.06em] text-gradient leading-none"
-                style={{
-                  fontSize: "clamp(120px, 18vw, 200px)",
-                  textShadow: "0 0 80px oklch(0.65 0.22 250 / 0.4)",
-                }}
-              >
-                AP
-              </div>
+              <img
+                src={logo.url}
+                alt="An Open Mind Freelancer"
+                className="relative z-10 w-[78%] h-[78%] object-contain rounded-full drop-shadow-[0_20px_60px_oklch(0.65_0.22_250/0.45)]"
+              />
 
               <span
                 className="absolute top-[12%] left-[6%] px-3.5 py-2 rounded-full bg-black/50 backdrop-blur-md border border-border text-xs font-medium z-20 animate-float"

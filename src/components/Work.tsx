@@ -3,39 +3,39 @@ import { ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
-    name: "NexaContent Hub",
-    cat: "Content Creator Platform",
-    img: "https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1400&q=80",
+    name: "Aether Studios",
+    cat: "Creator Brand Site",
+    img: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1600&q=80",
     size: "lg",
   },
   {
-    name: "UrbanEdge Store",
-    cat: "E-Commerce Website",
-    img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80",
+    name: "Northwind Apparel",
+    cat: "Shopify Storefront",
+    img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1100&q=80",
     size: "md",
   },
   {
-    name: "PulseMedia Agency",
-    cat: "Agency Landing Page",
-    img: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=900&q=80",
+    name: "Lumen Agency",
+    cat: "WordPress Build",
+    img: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1100&q=80",
     size: "sm",
   },
   {
-    name: "Creator Dashboard Pro",
-    cat: "Web Application UI",
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
+    name: "Orbit Dashboard",
+    cat: "Custom Web App",
+    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1100&q=80",
     size: "sm",
   },
   {
-    name: "StellarBrand Co.",
-    cat: "Brand Website",
-    img: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=900&q=80",
+    name: "Halo Magazine",
+    cat: "Editorial Website",
+    img: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1100&q=80",
     size: "md",
   },
   {
-    name: "FlowSpace Portfolio",
-    cat: "Portfolio & Blog",
-    img: "https://images.unsplash.com/photo-1517292987719-0369a794ec0f?auto=format&fit=crop&w=1400&q=80",
+    name: "Mono Portfolio",
+    cat: "Personal Brand",
+    img: "https://images.unsplash.com/photo-1517292987719-0369a794ec0f?auto=format&fit=crop&w=1600&q=80",
     size: "lg",
   },
 ];
@@ -72,15 +72,16 @@ export function Work() {
                   src={p.img}
                   alt={`${p.name} — ${p.cat}`}
                   loading="lazy"
-                  className="w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-[1.06] transition-all duration-700"
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-[1.06] transition-all duration-700"
                 />
-                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 transition-all duration-500">
                   <div className="text-[11px] tracking-[0.15em] uppercase font-medium text-primary-glow">
                     {p.cat}
                   </div>
                   <div className="flex items-center justify-between mt-1.5">
                     <h3 className="text-lg md:text-xl font-semibold">{p.name}</h3>
-                    <span className="inline-flex items-center gap-1 text-sm text-primary-glow">
+                    <span className="inline-flex items-center gap-1 text-sm text-primary-glow opacity-0 group-hover:opacity-100 transition-opacity">
                       View <ArrowUpRight size={16} />
                     </span>
                   </div>
