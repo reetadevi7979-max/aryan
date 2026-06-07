@@ -192,6 +192,11 @@
 @keyframes softPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 .animate-pulse-soft { animation: softPulse 2s ease-in-out infinite; }
 
+/* Orbit */
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
 /* Float */
 @keyframes floatY {
   0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
