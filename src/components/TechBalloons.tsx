@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactElement } from "react";
 import { Reveal } from "./Reveal";
 
 type Node = {
   label: string;
   sub: string;
-  icon: JSX.Element;
+  icon: ReactElement;
   // anchor positions in percent (0-100)
   x: number;
   y: number;

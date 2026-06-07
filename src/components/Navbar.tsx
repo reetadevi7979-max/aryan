@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png.asset.json";
 
 const links = [
   { label: "Work", href: "#work" },
@@ -29,10 +30,20 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-5 md:px-8 h-[68px] flex items-center justify-between">
         <a
           href="#top"
-          aria-label="Aryan Patel home"
-          className="inline-flex items-center justify-center w-11 h-11 rounded-2xl glass-blue font-black text-[15px] tracking-tight shadow-[0_0_24px_oklch(0.65_0.22_250/0.35),inset_0_0_12px_oklch(1_0_0/0.05)]"
+          aria-label="An Open Mind Freelancer — Aryan Patel"
+          className="flex items-center gap-2.5"
         >
-          AP
+          <img
+            src={logo.url}
+            alt="An Open Mind Freelancer logo"
+            className="w-10 h-10 rounded-full ring-1 ring-primary/30 shadow-[0_0_20px_oklch(0.65_0.22_250/0.35)]"
+          />
+          <span className="hidden sm:flex flex-col leading-tight">
+            <span className="text-[13px] font-bold tracking-tight">Aryan Patel</span>
+            <span className="text-[10px] tracking-[0.16em] uppercase text-foreground/55">
+              An Open Mind
+            </span>
+          </span>
         </a>
 
         <nav aria-label="Primary" className="hidden md:flex items-center gap-9">
