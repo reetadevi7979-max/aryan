@@ -220,21 +220,15 @@ export function TechBalloons() {
                         type="button"
                         onClick={() => setActive(p)}
                         aria-label={`${p.label} — view details`}
-                        className="rounded-full glass flex items-center justify-center transition-transform duration-500 group-hover:scale-110 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        className="rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                         style={{
                           width: p.size,
                           height: p.size,
                           boxShadow: `0 14px 40px -10px ${p.color}55, inset 0 0 22px ${p.color}22, 0 0 0 1px ${p.color}33`,
+                          animation: `orbit-spin ${p.spin}s linear infinite ${p.reverse ? "reverse" : ""}`,
                         }}
                       >
-                        <span
-                          className="inline-flex items-center justify-center"
-                          style={{
-                            animation: `orbit-spin ${p.spin}s linear infinite ${p.reverse ? "reverse" : ""}`,
-                          }}
-                        >
-                          {p.icon}
-                        </span>
+                        {p.icon}
                       </button>
                       <div className="mt-2 text-center whitespace-nowrap pointer-events-none">
                         <div className="text-xs md:text-sm font-semibold">{p.label}</div>
