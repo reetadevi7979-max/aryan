@@ -206,12 +206,12 @@
   to { transform: rotate(calc(var(--orbit-offset, 0deg) - 360deg)); }
 }
 @keyframes orbit-counter {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(-360deg); }
+  from { transform: rotate(var(--counter-offset, 0deg)); }
+  to { transform: rotate(calc(var(--counter-offset, 0deg) - 360deg)); }
 }
 @keyframes orbit-counter-reverse {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from { transform: rotate(var(--counter-offset, 0deg)); }
+  to { transform: rotate(calc(var(--counter-offset, 0deg) + 360deg)); }
 }
 @keyframes planet-spin {
   from { transform: rotate(0deg); }
