@@ -197,46 +197,6 @@
   to { transform: rotate(360deg); }
 }
 
-@keyframes orbit-revolve {
-  from { transform: rotate(var(--orbit-offset, 0deg)); }
-  to { transform: rotate(calc(var(--orbit-offset, 0deg) + 360deg)); }
-}
-@keyframes orbit-revolve-reverse {
-  from { transform: rotate(var(--orbit-offset, 0deg)); }
-  to { transform: rotate(calc(var(--orbit-offset, 0deg) - 360deg)); }
-}
-@keyframes orbit-counter {
-  from { transform: rotate(var(--counter-offset, 0deg)); }
-  to { transform: rotate(calc(var(--counter-offset, 0deg) - 360deg)); }
-}
-@keyframes orbit-counter-reverse {
-  from { transform: rotate(var(--counter-offset, 0deg)); }
-  to { transform: rotate(calc(var(--counter-offset, 0deg) + 360deg)); }
-}
-@keyframes planet-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.orbit-revolve {
-  transform-origin: 50% 50%;
-  animation: orbit-revolve var(--orbit-duration, 40s) linear infinite;
-  will-change: transform;
-}
-.orbit-revolve-reverse { animation-name: orbit-revolve-reverse; }
-.orbit-counter {
-  transform-origin: 50% 50%;
-  animation: orbit-counter var(--orbit-duration, 40s) linear infinite;
-  will-change: transform;
-}
-.orbit-counter-reverse { animation-name: orbit-counter-reverse; }
-.planet-spin {
-  transform-origin: 50% 50%;
-  animation: planet-spin var(--planet-spin-duration, 10s) linear infinite;
-  will-change: transform;
-}
-.planet-spin:hover { filter: brightness(1.18); }
-
 /* Float */
 @keyframes floatY {
   0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }

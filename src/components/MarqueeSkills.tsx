@@ -18,6 +18,7 @@ export function MarqueeSkills() {
 
   return (
     <section
+      id="skills"
       aria-label="Skills"
       className="py-14 md:py-16 border-y border-border overflow-hidden"
     >

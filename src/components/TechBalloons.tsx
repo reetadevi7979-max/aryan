@@ -1,4 +1,4 @@
-import { useState, type CSSProperties, type ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { Reveal } from "./Reveal";
 import logo from "@/assets/logo.png.asset.json";
 import {
@@ -29,7 +29,7 @@ const planets: Planet[] = [
     label: "React",
     sub: "Modern web apps",
     color: "#61DAFB",
-    orbit: 22,
+    orbit: 18,
     duration: 22,
     offset: 0,
     size: 84,
@@ -50,7 +50,7 @@ const planets: Planet[] = [
     label: "WordPress",
     sub: "CMS & blogs",
     color: "#4FA3D1",
-    orbit: 27,
+    orbit: 28,
     duration: 32,
     offset: 120,
     reverse: true,
@@ -70,7 +70,7 @@ const planets: Planet[] = [
     label: "Custom Website",
     sub: "Bespoke builds",
     color: "#60A5FA",
-    orbit: 32,
+    orbit: 38,
     duration: 42,
     offset: 240,
     size: 92,
@@ -90,7 +90,7 @@ const planets: Planet[] = [
     label: "Shopify",
     sub: "E-commerce",
     color: "#96BF48",
-    orbit: 37,
+    orbit: 46,
     duration: 52,
     offset: 60,
     reverse: true,
@@ -109,7 +109,7 @@ const planets: Planet[] = [
     label: "Framer Motion",
     sub: "Animations",
     color: "#BB7CFA",
-    orbit: 42,
+    orbit: 54,
     duration: 64,
     offset: 200,
     size: 90,
@@ -134,7 +134,7 @@ export function TechBalloons() {
         <Reveal className="text-center max-w-2xl mx-auto">
           <div className="label-tiny">Tech Stack</div>
           <h2 className="text-[clamp(32px,5vw,56px)] font-bold leading-[1.05] tracking-[-0.035em] mt-4 mb-5">
-            Aryan Tool System
+            Aryan's Solar System
           </h2>
           <p className="text-foreground/65 text-base md:text-lg">
             Tap a planet — every tool I build with, orbiting one calm center.
@@ -192,11 +192,12 @@ export function TechBalloons() {
             {planets.map((p) => (
               <div
                 key={p.label}
-                className={`absolute inset-0 z-20 pointer-events-none orbit-revolve ${p.reverse ? "orbit-revolve-reverse" : ""}`}
+                className="absolute inset-0 z-20 pointer-events-none"
                 style={{
-                  "--orbit-duration": `${p.duration}s`,
-                  "--orbit-offset": `${p.offset}deg`,
-                } as CSSProperties}
+                  animation: `orbit-spin ${p.duration}s linear infinite ${p.reverse ? "reverse" : ""}`,
+                  transformOrigin: "50% 50%",
+                  transform: `rotate(${p.offset}deg)`,
+                }}
               >
                 <div
                   className="absolute"
@@ -208,24 +209,24 @@ export function TechBalloons() {
                 >
                   {/* counter-rotate group so label stays upright */}
                   <div
-                    className={`pointer-events-auto orbit-counter ${p.reverse ? "orbit-counter-reverse" : ""}`}
                     style={{
-                      "--orbit-duration": `${p.duration}s`,
-                      "--counter-offset": `${-p.offset}deg`,
-                    } as CSSProperties}
+                      animation: `orbit-spin ${p.duration}s linear infinite ${p.reverse ? "" : "reverse"}`,
+                      transformOrigin: "50% 50%",
+                    }}
+                    className="pointer-events-auto"
                   >
                     <div className="relative group flex flex-col items-center">
                       <button
                         type="button"
                         onClick={() => setActive(p)}
                         aria-label={`${p.label} — view details`}
-                        className="rounded-full glass flex items-center justify-center planet-spin cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        className="rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                         style={{
                           width: p.size,
                           height: p.size,
                           boxShadow: `0 14px 40px -10px ${p.color}55, inset 0 0 22px ${p.color}22, 0 0 0 1px ${p.color}33`,
-                          "--planet-spin-duration": `${p.spin}s`,
-                        } as CSSProperties}
+                          animation: `orbit-spin ${p.spin}s linear infinite ${p.reverse ? "reverse" : ""}`,
+                        }}
                       >
                         {p.icon}
                       </button>
