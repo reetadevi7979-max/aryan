@@ -192,12 +192,11 @@ export function TechBalloons() {
             {planets.map((p) => (
               <div
                 key={p.label}
-                className="absolute inset-0 z-20 pointer-events-none"
+                className={`absolute inset-0 z-20 pointer-events-none orbit-revolve ${p.reverse ? "orbit-revolve-reverse" : ""}`}
                 style={{
-                  animation: `orbit-spin ${p.duration}s linear infinite ${p.reverse ? "reverse" : ""}`,
-                  transformOrigin: "50% 50%",
-                  transform: `rotate(${p.offset}deg)`,
-                }}
+                  "--orbit-duration": `${p.duration}s`,
+                  "--orbit-offset": `${p.offset}deg`,
+                } as CSSProperties}
               >
                 <div
                   className="absolute"
@@ -209,11 +208,8 @@ export function TechBalloons() {
                 >
                   {/* counter-rotate group so label stays upright */}
                   <div
-                    style={{
-                      animation: `orbit-spin ${p.duration}s linear infinite ${p.reverse ? "" : "reverse"}`,
-                      transformOrigin: "50% 50%",
-                    }}
-                    className="pointer-events-auto"
+                    className={`pointer-events-auto orbit-counter ${p.reverse ? "orbit-counter-reverse" : ""}`}
+                    style={{ "--orbit-duration": `${p.duration}s` } as CSSProperties}
                   >
                     <div className="relative group flex flex-col items-center">
                       <button
@@ -225,8 +221,8 @@ export function TechBalloons() {
                           width: p.size,
                           height: p.size,
                           boxShadow: `0 14px 40px -10px ${p.color}55, inset 0 0 22px ${p.color}22, 0 0 0 1px ${p.color}33`,
-                          animation: `orbit-spin ${p.spin}s linear infinite ${p.reverse ? "reverse" : ""}`,
-                        }}
+                          "--planet-spin-duration": `${p.spin}s`,
+                        } as CSSProperties}
                       >
                         {p.icon}
                       </button>
