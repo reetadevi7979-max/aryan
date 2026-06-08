@@ -209,7 +209,10 @@ export function TechBalloons() {
                   {/* counter-rotate group so label stays upright */}
                   <div
                     className={`pointer-events-auto orbit-counter ${p.reverse ? "orbit-counter-reverse" : ""}`}
-                    style={{ "--orbit-duration": `${p.duration}s` } as CSSProperties}
+                    style={{
+                      "--orbit-duration": `${p.duration}s`,
+                      "--counter-offset": `${-p.offset}deg`,
+                    } as CSSProperties}
                   >
                     <div className="relative group flex flex-col items-center">
                       <button
