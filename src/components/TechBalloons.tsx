@@ -216,7 +216,7 @@ export function TechBalloons() {
                         type="button"
                         onClick={() => setActive(p)}
                         aria-label={`${p.label} — view details`}
-                        className="rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        className="rounded-full glass flex items-center justify-center planet-spin cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                         style={{
                           width: p.size,
                           height: p.size,
