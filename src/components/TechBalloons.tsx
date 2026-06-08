@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from "react";
+import { useState, type CSSProperties, type ReactElement } from "react";
 import { Reveal } from "./Reveal";
 import logo from "@/assets/logo.png.asset.json";
 import {
@@ -29,7 +29,7 @@ const planets: Planet[] = [
     label: "React",
     sub: "Modern web apps",
     color: "#61DAFB",
-    orbit: 18,
+    orbit: 22,
     duration: 22,
     offset: 0,
     size: 84,
@@ -50,7 +50,7 @@ const planets: Planet[] = [
     label: "WordPress",
     sub: "CMS & blogs",
     color: "#4FA3D1",
-    orbit: 28,
+    orbit: 27,
     duration: 32,
     offset: 120,
     reverse: true,
@@ -70,7 +70,7 @@ const planets: Planet[] = [
     label: "Custom Website",
     sub: "Bespoke builds",
     color: "#60A5FA",
-    orbit: 38,
+    orbit: 32,
     duration: 42,
     offset: 240,
     size: 92,
@@ -90,7 +90,7 @@ const planets: Planet[] = [
     label: "Shopify",
     sub: "E-commerce",
     color: "#96BF48",
-    orbit: 46,
+    orbit: 37,
     duration: 52,
     offset: 60,
     reverse: true,
@@ -109,7 +109,7 @@ const planets: Planet[] = [
     label: "Framer Motion",
     sub: "Animations",
     color: "#BB7CFA",
-    orbit: 54,
+    orbit: 42,
     duration: 64,
     offset: 200,
     size: 90,
@@ -134,7 +134,7 @@ export function TechBalloons() {
         <Reveal className="text-center max-w-2xl mx-auto">
           <div className="label-tiny">Tech Stack</div>
           <h2 className="text-[clamp(32px,5vw,56px)] font-bold leading-[1.05] tracking-[-0.035em] mt-4 mb-5">
-            Aryan's Solar System
+            Aryan Tool System
           </h2>
           <p className="text-foreground/65 text-base md:text-lg">
             Tap a planet — every tool I build with, orbiting one calm center.
