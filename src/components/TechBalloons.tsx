@@ -192,20 +192,30 @@ export function TechBalloons() {
             {planets.map((p) => (
               <div
                 key={p.label}
-                className="absolute left-1/2 top-1/2 w-0 h-0 z-20"
+                className="absolute inset-0 z-20 pointer-events-none"
                 style={{
                   animation: `orbit-spin ${p.duration}s linear infinite ${p.reverse ? "reverse" : ""}`,
+                  transformOrigin: "50% 50%",
                   transform: `rotate(${p.offset}deg)`,
                 }}
               >
-                <div className="absolute top-1/2 -translate-y-1/2" style={{ left: `${p.orbit}%` }}>
+                <div
+                  className="absolute"
+                  style={{
+                    left: `calc(50% + ${p.orbit}%)`,
+                    top: "50%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
                   {/* counter-rotate group so label stays upright */}
                   <div
                     style={{
                       animation: `orbit-spin ${p.duration}s linear infinite ${p.reverse ? "" : "reverse"}`,
+                      transformOrigin: "50% 50%",
                     }}
+                    className="pointer-events-auto"
                   >
-                    <div className="relative -translate-x-1/2 group">
+                    <div className="relative group flex flex-col items-center">
                       <button
                         type="button"
                         onClick={() => setActive(p)}
@@ -217,7 +227,6 @@ export function TechBalloons() {
                           boxShadow: `0 14px 40px -10px ${p.color}55, inset 0 0 22px ${p.color}22, 0 0 0 1px ${p.color}33`,
                         }}
                       >
-                        {/* self-rotating icon (planet spin on its own axis) */}
                         <span
                           className="inline-flex items-center justify-center"
                           style={{
@@ -227,7 +236,7 @@ export function TechBalloons() {
                           {p.icon}
                         </span>
                       </button>
-                      <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 text-center whitespace-nowrap pointer-events-none">
+                      <div className="mt-2 text-center whitespace-nowrap pointer-events-none">
                         <div className="text-xs md:text-sm font-semibold">{p.label}</div>
                         <div className="text-[10px] md:text-[11px] text-foreground/55">{p.sub}</div>
                       </div>
