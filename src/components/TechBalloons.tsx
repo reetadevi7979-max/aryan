@@ -24,6 +24,8 @@ type Planet = {
   highlights: string[];
 };
 
+const planetSize = (size: number) => `clamp(${Math.round(size * 0.62)}px, ${Math.round(size * 0.13)}cqw, ${size}px)`;
+
 const planets: Planet[] = [
   {
     label: "React",
@@ -216,8 +218,8 @@ export function TechBalloons() {
                         aria-label={`${p.label} — view details`}
                         className="rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                         style={{
-                          width: p.size,
-                          height: p.size,
+                          width: planetSize(p.size),
+                          height: planetSize(p.size),
                           boxShadow: `0 14px 40px -10px ${p.color}55, inset 0 0 22px ${p.color}22, 0 0 0 1px ${p.color}33`,
                         }}
                       >
