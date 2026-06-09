@@ -6,10 +6,17 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "build:vercel": "NITRO_PRESET=vercel vite build",
+    "build:render": "NITRO_PRESET=render-com vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
+    "start": "node .output/server/index.mjs",
+    "start:render": "node .output/server/index.mjs",
     "lint": "eslint .",
     "format": "prettier --write ."
+  },
+  "engines": {
+    "node": ">=22.0.0"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

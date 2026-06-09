@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from "react";
+import { useState, type CSSProperties, type ReactElement } from "react";
 import { Reveal } from "./Reveal";
 import logo from "@/assets/logo.png.asset.json";
 import {
@@ -29,9 +29,9 @@ const planets: Planet[] = [
     label: "React",
     sub: "Modern web apps",
     color: "#61DAFB",
-    orbit: 18,
-    duration: 22,
-    offset: 0,
+    orbit: 21,
+    duration: 18,
+    offset: 310,
     size: 84,
     spin: 8,
     description:
@@ -50,10 +50,9 @@ const planets: Planet[] = [
     label: "WordPress",
     sub: "CMS & blogs",
     color: "#4FA3D1",
-    orbit: 28,
-    duration: 32,
-    offset: 120,
-    reverse: true,
+    orbit: 27,
+    duration: 26,
+    offset: 35,
     size: 88,
     spin: 12,
     description:
@@ -70,9 +69,9 @@ const planets: Planet[] = [
     label: "Custom Website",
     sub: "Bespoke builds",
     color: "#60A5FA",
-    orbit: 38,
-    duration: 42,
-    offset: 240,
+    orbit: 33,
+    duration: 34,
+    offset: 165,
     size: 92,
     spin: 10,
     description:
@@ -90,10 +89,9 @@ const planets: Planet[] = [
     label: "Shopify",
     sub: "E-commerce",
     color: "#96BF48",
-    orbit: 46,
-    duration: 52,
-    offset: 60,
-    reverse: true,
+    orbit: 38,
+    duration: 43,
+    offset: 250,
     size: 88,
     spin: 14,
     description:
@@ -109,9 +107,9 @@ const planets: Planet[] = [
     label: "Framer Motion",
     sub: "Animations",
     color: "#BB7CFA",
-    orbit: 54,
-    duration: 64,
-    offset: 200,
+    orbit: 43,
+    duration: 54,
+    offset: 95,
     size: 90,
     spin: 16,
     description:
@@ -142,13 +140,13 @@ export function TechBalloons() {
         </Reveal>
 
         <Reveal>
-          <div className="relative mt-16 md:mt-24 mx-auto aspect-square w-full max-w-[680px]">
+          <div className="relative mt-16 md:mt-24 mx-auto aspect-square w-full max-w-[min(760px,92vw)] [container-type:size]">
             {/* orbit rings */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               {planets.map((p) => (
                 <div
                   key={`ring-${p.label}`}
-                  className="absolute rounded-full border border-white/[0.06]"
+                  className="absolute rounded-full border border-white/[0.08]"
                   style={{ width: `${p.orbit * 2}%`, height: `${p.orbit * 2}%` }}
                 />
               ))}
@@ -192,28 +190,24 @@ export function TechBalloons() {
             {planets.map((p) => (
               <div
                 key={p.label}
-                className="absolute inset-0 z-20 pointer-events-none"
+                className="planet-orbit absolute inset-0 z-20 pointer-events-none"
                 style={{
-                  animation: `orbit-spin ${p.duration}s linear infinite ${p.reverse ? "reverse" : ""}`,
-                  transformOrigin: "50% 50%",
-                  transform: `rotate(${p.offset}deg)`,
-                }}
+                  "--start-angle": `${p.offset}deg`,
+                  "--orbit-time": `${p.duration}s`,
+                } as CSSProperties}
               >
                 <div
-                  className="absolute"
+                  className="absolute left-1/2 top-1/2"
                   style={{
-                    left: `calc(50% + ${p.orbit}%)`,
-                    top: "50%",
-                    transform: "translate(-50%, -50%)",
+                    transform: `translate(-50%, -50%) translateX(${p.orbit}cqw)`,
                   }}
                 >
-                  {/* counter-rotate group so label stays upright */}
                   <div
+                    className="planet-upright pointer-events-auto"
                     style={{
-                      animation: `orbit-spin ${p.duration}s linear infinite ${p.reverse ? "" : "reverse"}`,
-                      transformOrigin: "50% 50%",
-                    }}
-                    className="pointer-events-auto"
+                      "--orbit-time": `${p.duration}s`,
+                      "--counter-start": `${-p.offset}deg`,
+                    } as CSSProperties}
                   >
                     <div className="relative group flex flex-col items-center">
                       <button
@@ -225,10 +219,11 @@ export function TechBalloons() {
                           width: p.size,
                           height: p.size,
                           boxShadow: `0 14px 40px -10px ${p.color}55, inset 0 0 22px ${p.color}22, 0 0 0 1px ${p.color}33`,
-                          animation: `orbit-spin ${p.spin}s linear infinite ${p.reverse ? "reverse" : ""}`,
                         }}
                       >
-                        {p.icon}
+                        <span className="planet-spin" style={{ "--spin-time": `${p.spin}s` } as CSSProperties}>
+                          {p.icon}
+                        </span>
                       </button>
                       <div className="mt-2 text-center whitespace-nowrap pointer-events-none">
                         <div className="text-xs md:text-sm font-semibold">{p.label}</div>
