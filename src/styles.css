@@ -197,6 +197,35 @@
   to { transform: rotate(360deg); }
 }
 
+@keyframes solar-revolve {
+  from { transform: rotate(var(--start-angle, 0deg)); }
+  to { transform: rotate(calc(var(--start-angle, 0deg) + 360deg)); }
+}
+
+@keyframes solar-counter-revolve {
+  from { transform: rotate(var(--counter-start, 0deg)); }
+  to { transform: rotate(calc(var(--counter-start, 0deg) - 360deg)); }
+}
+
+.planet-orbit {
+  transform-origin: 50% 50%;
+  animation: solar-revolve var(--orbit-time, 30s) linear infinite;
+  will-change: transform;
+}
+
+.planet-upright {
+  transform-origin: 50% 50%;
+  animation: solar-counter-revolve var(--orbit-time, 30s) linear infinite;
+  will-change: transform;
+}
+
+.planet-spin {
+  display: grid;
+  place-items: center;
+  animation: orbit-spin var(--spin-time, 10s) linear infinite;
+  will-change: transform;
+}
+
 /* Float */
 @keyframes floatY {
   0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }

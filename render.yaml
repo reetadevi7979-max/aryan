@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: aryan-freelancer
+    runtime: node
+    plan: free
+    buildCommand: bun install --frozen-lockfile && bun run build:render
+    startCommand: bun run start:render
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NODE_ENV
+        value: production
