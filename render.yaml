@@ -3,8 +3,8 @@ services:
     name: aryan-freelancer
     runtime: node
     plan: free
-    buildCommand: npm install && npm run build:render
-    startCommand: npm run start:render
+    buildCommand: bun install --frozen-lockfile && bun run build:render
+    startCommand: bun run start:render
     envVars:
       - key: NODE_VERSION
         value: 22
