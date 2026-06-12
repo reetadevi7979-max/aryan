@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png.asset.json";
+import { assetUrl } from "@/lib/asset-url";
 
 const links = [
   { label: "Work", href: "#work" },
@@ -34,9 +35,9 @@ export function Navbar() {
           className="flex items-center gap-2.5"
         >
           <img
-            src={logo.url}
+            src={assetUrl(logo)}
             alt="An Open Mind Freelancer logo"
-            className="w-10 h-10 rounded-full ring-1 ring-primary/30 shadow-[0_0_20px_oklch(0.65_0.22_250/0.35)]"
+            className="w-10 h-10 rounded-full ring-1 ring-primary/30 shadow-[0_0_20px_oklch(0.65_0.22_250/0.35)] animate-logo-pulse"
           />
           <span className="hidden sm:flex flex-col leading-tight">
             <span className="text-[13px] font-bold tracking-tight">Aryan Patel</span>

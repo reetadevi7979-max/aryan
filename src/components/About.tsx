@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
 import { Sparkles } from "lucide-react";
 import logo from "@/assets/logo.png.asset.json";
+import { assetUrl } from "@/lib/asset-url";
 
 function Counter({ to, suffix = "+" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -99,9 +100,9 @@ export function About() {
                 }}
               />
               <img
-                src={logo.url}
+                src={assetUrl(logo)}
                 alt="An Open Mind Freelancer"
-                className="relative z-10 w-[78%] h-[78%] object-contain rounded-full drop-shadow-[0_20px_60px_oklch(0.65_0.22_250/0.45)]"
+                className="relative z-10 w-[78%] h-[78%] object-contain rounded-full drop-shadow-[0_20px_60px_oklch(0.65_0.22_250/0.45)] animate-logo-pulse"
               />
 
               <span
