@@ -203,8 +203,8 @@
 }
 
 @keyframes solar-counter-revolve {
-  from { transform: translateX(calc(var(--orbit-radius, 30) * 1cqw)) translate(-50%, -50%) rotate(var(--counter-start, 0deg)); }
-  to { transform: translateX(calc(var(--orbit-radius, 30) * 1cqw)) translate(-50%, -50%) rotate(var(--counter-end, -360deg)); }
+  from { transform: translateX(var(--orbit-distance, 30cqw)) translate(-50%, -50%) rotate(var(--counter-start, 0deg)); }
+  to { transform: translateX(var(--orbit-distance, 30cqw)) translate(-50%, -50%) rotate(var(--counter-end, -360deg)); }
 }
 
 .solar-system-stage {
