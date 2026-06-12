@@ -196,7 +196,7 @@ export function TechBalloons() {
                 key={p.label}
                 className="planet-track absolute z-20 pointer-events-none"
                 style={{
-                  "--orbit-radius": p.orbit,
+                  "--orbit-distance": `${p.orbit}cqw`,
                   "--start-angle": `${p.offset}deg`,
                   "--end-angle": `${p.offset + 360}deg`,
                   "--orbit-time": `${p.duration}s`,
