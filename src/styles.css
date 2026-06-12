@@ -75,9 +75,9 @@
   --glass: oklch(1 0 0 / 0.04);
   --glass-border: oklch(1 0 0 / 0.08);
 
-  --gradient-hero: radial-gradient(ellipse 80% 50% at 20% 0%, oklch(0.65 0.22 250 / 0.18), transparent 60%),
-                   radial-gradient(ellipse 60% 50% at 80% 30%, oklch(0.78 0.16 250 / 0.10), transparent 60%),
-                   radial-gradient(ellipse 60% 60% at 50% 90%, oklch(0.65 0.22 250 / 0.12), transparent 60%);
+  --gradient-hero: radial-gradient(ellipse 80% 50% at 20% 0%, oklch(0.65 0.22 250 / 0.26), transparent 60%),
+                   radial-gradient(ellipse 60% 50% at 80% 30%, oklch(0.78 0.16 250 / 0.18), transparent 60%),
+                   radial-gradient(ellipse 60% 60% at 50% 90%, oklch(0.55 0.24 260 / 0.18), transparent 60%);
   --gradient-text: linear-gradient(180deg, oklch(1 0 0) 0%, oklch(0.78 0.16 250) 100%);
   --gradient-primary: linear-gradient(180deg, oklch(0.72 0.2 250), oklch(0.6 0.24 250));
 
@@ -111,7 +111,7 @@
     content: "";
     position: fixed;
     inset: 0;
-    background: var(--gradient-hero), linear-gradient(180deg, #000 0%, #050510 100%);
+    background: var(--gradient-hero), linear-gradient(180deg, #000 0%, #020817 48%, #000 100%);
     z-index: -2;
     pointer-events: none;
   }
@@ -198,17 +198,49 @@
 }
 
 @keyframes solar-revolve {
-  from { transform: rotate(var(--start-angle, 0deg)); }
-  to { transform: rotate(calc(var(--start-angle, 0deg) + 360deg)); }
+  from { transform: translate(-50%, -50%) rotate(var(--start-angle, 0deg)); }
+  to { transform: translate(-50%, -50%) rotate(var(--end-angle, 360deg)); }
 }
 
 @keyframes solar-counter-revolve {
-  from { transform: rotate(var(--counter-start, 0deg)); }
-  to { transform: rotate(calc(var(--counter-start, 0deg) - 360deg)); }
+  from { transform: translateX(calc(var(--orbit-radius, 30) * 1cqw)) translate(-50%, -50%) rotate(var(--counter-start, 0deg)); }
+  to { transform: translateX(calc(var(--orbit-radius, 30) * 1cqw)) translate(-50%, -50%) rotate(var(--counter-end, -360deg)); }
 }
 
-.planet-orbit {
-  transform-origin: 50% 50%;
+.solar-system-stage {
+  container-type: size;
+  isolation: isolate;
+}
+
+.solar-system-stage::before {
+  content: "";
+  position: absolute;
+  inset: 7%;
+  border-radius: 9999px;
+  background: conic-gradient(from 120deg, transparent, oklch(0.78 0.16 250 / 0.18), transparent 32%, oklch(0.65 0.22 250 / 0.12), transparent 62%);
+  filter: blur(18px);
+  animation: orbit-spin 28s linear infinite;
+  pointer-events: none;
+}
+
+.solar-ring {
+  box-shadow: inset 0 0 24px oklch(0.65 0.22 250 / 0.06), 0 0 24px oklch(0.65 0.22 250 / 0.05);
+}
+
+.solar-ring:nth-child(even) {
+  border-color: oklch(0.78 0.16 250 / 0.14);
+}
+
+.solar-sun {
+  animation: sun-breathe 4.5s ease-in-out infinite;
+}
+
+.planet-track {
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
   animation: solar-revolve var(--orbit-time, 30s) linear infinite;
   will-change: transform;
 }
@@ -219,12 +251,66 @@
   will-change: transform;
 }
 
+.planet-button {
+  border: 1px solid oklch(1 0 0 / 0.16);
+  overflow: hidden;
+  position: relative;
+}
+
+.planet-button::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: inherit;
+  background: linear-gradient(135deg, oklch(1 0 0 / 0.36), transparent 42%);
+  pointer-events: none;
+}
+
+.planet-button:hover {
+  transform: scale(1.14);
+}
+
 .planet-spin {
   display: grid;
   place-items: center;
+  position: relative;
+  z-index: 1;
   animation: orbit-spin var(--spin-time, 10s) linear infinite;
   will-change: transform;
 }
+
+@keyframes sun-breathe {
+  0%, 100% { transform: scale(1); filter: saturate(1); }
+  50% { transform: scale(1.045); filter: saturate(1.35); }
+}
+
+@keyframes cometSweep {
+  0% { transform: rotate(0deg) translateX(37cqw) rotate(0deg); opacity: 0; }
+  8%, 44% { opacity: 1; }
+  58%, 100% { transform: rotate(360deg) translateX(37cqw) rotate(-360deg); opacity: 0; }
+}
+
+.solar-comet {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(8px, 1.2cqw, 12px);
+  height: clamp(8px, 1.2cqw, 12px);
+  margin: -6px;
+  border-radius: 9999px;
+  background: oklch(0.88 0.12 245);
+  box-shadow: 0 0 18px oklch(0.78 0.16 250 / 0.9), -34px 0 30px oklch(0.65 0.22 250 / 0.4);
+  animation: cometSweep 12s linear infinite;
+  pointer-events: none;
+  z-index: 25;
+}
+
+@keyframes logoPulse {
+  0%, 100% { filter: drop-shadow(0 0 8px oklch(0.65 0.22 250 / 0.35)); }
+  50% { filter: drop-shadow(0 0 22px oklch(0.78 0.16 250 / 0.8)); }
+}
+
+.animate-logo-pulse { animation: logoPulse 3.2s ease-in-out infinite; }
 
 /* Float */
 @keyframes floatY {
