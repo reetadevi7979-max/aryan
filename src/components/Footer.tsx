@@ -1,5 +1,6 @@
 import { Instagram } from "lucide-react";
 import logo from "@/assets/logo.png.asset.json";
+import { assetUrl } from "@/lib/asset-url";
 
 export function Footer() {
   return (
@@ -7,9 +8,9 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-5 md:px-8 flex flex-wrap items-center justify-between gap-5">
         <a href="#top" className="flex items-center gap-2.5" aria-label="Home">
           <img
-            src={logo.url}
+            src={assetUrl(logo)}
             alt="An Open Mind Freelancer logo"
-            className="w-10 h-10 rounded-full ring-1 ring-primary/30"
+            className="w-10 h-10 rounded-full ring-1 ring-primary/30 animate-logo-pulse"
           />
           <span className="text-sm font-semibold">Aryan Patel</span>
         </a>

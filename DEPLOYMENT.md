@@ -11,6 +11,8 @@ Recommended host: **Vercel**. It is the best fit for this TanStack Start app bec
    - Build: `bun run build:vercel`
 4. Add any real secrets in **Vercel → Project Settings → Environment Variables**.
 
+Uploaded images are referenced through the published asset host, so the logo and portfolio images continue to load after deploying on Vercel or Render.
+
 ## Render
 
 1. Push this project to GitHub.

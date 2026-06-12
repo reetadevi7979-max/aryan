@@ -1,6 +1,7 @@
 import { useState, type CSSProperties, type ReactElement } from "react";
 import { Reveal } from "./Reveal";
 import logo from "@/assets/logo.png.asset.json";
+import { assetUrl } from "@/lib/asset-url";
 import {
   Dialog,
   DialogContent,
@@ -142,13 +143,14 @@ export function TechBalloons() {
         </Reveal>
 
         <Reveal>
-          <div className="relative mt-16 md:mt-24 mx-auto aspect-square w-full max-w-[min(760px,92vw)] [container-type:size]">
+          <div className="solar-system-stage relative mt-16 md:mt-24 mx-auto aspect-square w-full max-w-[min(760px,92vw)]">
+            <div aria-hidden className="solar-comet" />
             {/* orbit rings */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               {planets.map((p) => (
                 <div
                   key={`ring-${p.label}`}
-                  className="absolute rounded-full border border-white/[0.08]"
+                  className="solar-ring absolute rounded-full border border-white/[0.08]"
                   style={{ width: `${p.orbit * 2}%`, height: `${p.orbit * 2}%` }}
                 />
               ))}
@@ -168,17 +170,17 @@ export function TechBalloons() {
             {/* sun = logo hub */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
               <div
-                className="relative w-[26vw] h-[26vw] max-w-[180px] max-h-[180px] min-w-[120px] min-h-[120px] rounded-full glass-blue flex items-center justify-center"
+                className="solar-sun relative w-[30vw] h-[30vw] max-w-[210px] max-h-[210px] min-w-[128px] min-h-[128px] rounded-full glass-blue flex items-center justify-center"
                 style={{
                   boxShadow:
                     "0 0 80px oklch(0.65 0.22 250 / 0.55), inset 0 0 40px oklch(0.65 0.22 250 / 0.25)",
                 }}
               >
                 <img
-                  src={logo.url}
+                  src={assetUrl(logo)}
                   alt="Aryan Patel logo"
                   className="w-[78%] h-[78%] object-contain rounded-full drop-shadow-[0_10px_40px_oklch(0.65_0.22_250/0.6)]"
-                  style={{ animation: "orbit-spin 40s linear infinite" }}
+                  style={{ animation: "orbit-spin 34s linear infinite" }}
                 />
                 <span
                   aria-hidden
@@ -192,34 +194,32 @@ export function TechBalloons() {
             {planets.map((p) => (
               <div
                 key={p.label}
-                className="planet-orbit absolute inset-0 z-20 pointer-events-none"
+                className="planet-track absolute z-20 pointer-events-none"
                 style={{
+                  "--orbit-distance": `${p.orbit}cqw`,
                   "--start-angle": `${p.offset}deg`,
+                  "--end-angle": `${p.offset + 360}deg`,
                   "--orbit-time": `${p.duration}s`,
                 } as CSSProperties}
               >
                 <div
-                  className="absolute left-1/2 top-1/2"
+                  className="planet-upright pointer-events-auto"
                   style={{
-                    transform: `translate(-50%, -50%) translateX(${p.orbit}cqw)`,
-                  }}
+                    "--orbit-time": `${p.duration}s`,
+                    "--counter-start": `${-p.offset}deg`,
+                    "--counter-end": `${-p.offset - 360}deg`,
+                  } as CSSProperties}
                 >
-                  <div
-                    className="planet-upright pointer-events-auto"
-                    style={{
-                      "--orbit-time": `${p.duration}s`,
-                      "--counter-start": `${-p.offset}deg`,
-                    } as CSSProperties}
-                  >
                     <div className="relative group flex flex-col items-center">
                       <button
                         type="button"
                         onClick={() => setActive(p)}
                         aria-label={`${p.label} — view details`}
-                        className="rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        className="planet-button rounded-full flex items-center justify-center transition-transform duration-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                         style={{
                           width: planetSize(p.size),
                           height: planetSize(p.size),
+                          background: `radial-gradient(circle at 32% 24%, oklch(1 0 0 / 0.92), ${p.color} 24%, ${p.color}99 54%, oklch(0.04 0.02 260 / 0.96) 100%)`,
                           boxShadow: `0 14px 40px -10px ${p.color}55, inset 0 0 22px ${p.color}22, 0 0 0 1px ${p.color}33`,
                         }}
                       >
@@ -232,7 +232,6 @@ export function TechBalloons() {
                         <div className="text-[10px] md:text-[11px] text-foreground/55">{p.sub}</div>
                       </div>
                     </div>
-                  </div>
                 </div>
               </div>
             ))}
