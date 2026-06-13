@@ -25,7 +25,7 @@ export function Services() {
         </Reveal>
 
         <Reveal className="mt-12 md:mt-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 auto-rows-[220px]">
+          <div data-gsap-stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 auto-rows-[220px]">
             {services.map(({ icon: Icon, title, desc, wide }) => (
               <div
                 key={title}

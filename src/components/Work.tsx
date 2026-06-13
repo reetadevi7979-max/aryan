@@ -61,7 +61,7 @@ export function Work() {
         </Reveal>
 
         <Reveal className="mt-12 md:mt-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5">
+          <div data-gsap-stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5">
             {projects.map((p) => (
               <a
                 key={p.name}
