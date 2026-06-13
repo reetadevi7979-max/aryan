@@ -57,9 +57,9 @@ const tools: Tool[] = [
   {
     label: "Framer Motion",
     sub: "Animations",
-    color: "#BB7CFA",
+    color: "#A5B4FC",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#BB7CFA">
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#A5B4FC">
         <path d="M6 2h12v6H12L6 2Zm0 6h6l6 6H6V8Zm0 6h6v6l-6-6Z" />
       </svg>
     ),
