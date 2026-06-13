@@ -88,9 +88,9 @@ const tools: Tool[] = [
   {
     label: "Figma",
     sub: "Design handoff",
-    color: "#F472B6",
+    color: "#7DD3FC",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#F472B6">
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#7DD3FC">
         <circle cx="9" cy="5" r="3" />
         <circle cx="15" cy="5" r="3" opacity=".7" />
         <circle cx="9" cy="12" r="3" opacity=".85" />
