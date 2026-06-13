@@ -8,14 +8,16 @@ type Tool = {
   icon: ReactElement;
 };
 
+const ACCENT = "#60A5FA";
+
 const tools: Tool[] = [
   {
     label: "React",
     sub: "Modern web apps",
-    color: "#61DAFB",
+    color: ACCENT,
     icon: (
-      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="none" stroke="#61DAFB" strokeWidth="1.2">
-        <circle cx="12" cy="12" r="2" fill="#61DAFB" />
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="none" stroke={ACCENT} strokeWidth="1.2">
+        <circle cx="12" cy="12" r="2" fill={ACCENT} />
         <ellipse cx="12" cy="12" rx="10" ry="4" />
         <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)" />
         <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)" />
@@ -25,20 +27,20 @@ const tools: Tool[] = [
   {
     label: "Next.js",
     sub: "SSR & SSG",
-    color: "#E2E8F0",
+    color: ACCENT,
     icon: (
-      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#E2E8F0">
-        <circle cx="12" cy="12" r="10" fill="none" stroke="#E2E8F0" strokeWidth="1.4" />
-        <path d="M8 7v10M8 7l8 10M16 7v7" stroke="#E2E8F0" strokeWidth="1.4" fill="none" />
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill={ACCENT}>
+        <circle cx="12" cy="12" r="10" fill="none" stroke={ACCENT} strokeWidth="1.4" />
+        <path d="M8 7v10M8 7l8 10M16 7v7" stroke={ACCENT} strokeWidth="1.4" fill="none" />
       </svg>
     ),
   },
   {
     label: "WordPress",
     sub: "CMS & blogs",
-    color: "#4FA3D1",
+    color: ACCENT,
     icon: (
-      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="none" stroke="#4FA3D1" strokeWidth="1.4">
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="none" stroke={ACCENT} strokeWidth="1.4">
         <circle cx="12" cy="12" r="10" />
         <path d="M5 11h14M5 13h14M9 5l6 14M15 5l-6 14" strokeWidth="1" />
       </svg>
@@ -47,9 +49,9 @@ const tools: Tool[] = [
   {
     label: "Shopify",
     sub: "E-commerce",
-    color: "#96BF48",
+    color: ACCENT,
     icon: (
-      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#96BF48">
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill={ACCENT}>
         <path d="M15.3 4.4c-.1 0-1.7.1-1.7.1s-1.1-1-1.2-1.1c-.1-.1-.4-.1-.5-.1l-.7 9.6 4.6-1-.5-7.5ZM9 17.4l-2.6.7L4 6.6c0-.1.1-.2.2-.2l1.5-.5c.2.1.4 0 .6-.1l1.5-.5c.2 0 .3 0 .5.1L9 6.1l0 11.3Zm6-3.6c-.6-.3-1-.5-1-.9 0-.4.3-.6.8-.6.4 0 .8.1 1.2.3l.5-1.5s-.4-.3-1.6-.3c-1.7 0-2.9 1-2.9 2.4 0 .8.5 1.4 1.3 1.8.6.3.8.6.8.9 0 .4-.3.7-.8.7-.6 0-1.4-.3-1.8-.6l-.5 1.5c.4.2 1.3.5 2.2.5 1.8 0 3-.9 3-2.4 0-1-.5-1.5-1.2-1.8Z" />
       </svg>
     ),
@@ -57,9 +59,9 @@ const tools: Tool[] = [
   {
     label: "Framer Motion",
     sub: "Animations",
-    color: "#A5B4FC",
+    color: ACCENT,
     icon: (
-      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#A5B4FC">
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill={ACCENT}>
         <path d="M6 2h12v6H12L6 2Zm0 6h6l6 6H6V8Zm0 6h6v6l-6-6Z" />
       </svg>
     ),
@@ -67,9 +69,9 @@ const tools: Tool[] = [
   {
     label: "Tailwind CSS",
     sub: "Utility styling",
-    color: "#38BDF8",
+    color: ACCENT,
     icon: (
-      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#38BDF8">
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill={ACCENT}>
         <path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.8 2 1.4 1 1 2.2 2.1 4.5 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.8-2-1.4C15.5 7.1 14.3 6 12 6Zm-5 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.8 2 1.4 1 1 2.2 2.1 4.5 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.8-2-1.4-1-1-2.2-2.1-4.5-2.1Z" />
       </svg>
     ),
@@ -77,20 +79,20 @@ const tools: Tool[] = [
   {
     label: "TypeScript",
     sub: "Type-safe code",
-    color: "#3178C6",
+    color: ACCENT,
     icon: (
-      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#3178C6">
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill={ACCENT}>
         <rect x="2" y="2" width="20" height="20" rx="3" />
-        <path d="M9 11H6.5v6H8v-4.5h1V11Zm1.5 0v1.5h2V17H14v-4.5h2V11h-5.5Z" fill="#fff" />
+        <path d="M9 11H6.5v6H8v-4.5h1V11Zm1.5 0v1.5h2V17H14v-4.5h2V11h-5.5Z" fill="#0b1220" />
       </svg>
     ),
   },
   {
     label: "Figma",
     sub: "Design handoff",
-    color: "#7DD3FC",
+    color: ACCENT,
     icon: (
-      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#7DD3FC">
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill={ACCENT}>
         <circle cx="9" cy="5" r="3" />
         <circle cx="15" cy="5" r="3" opacity=".7" />
         <circle cx="9" cy="12" r="3" opacity=".85" />
