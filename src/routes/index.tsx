@@ -10,6 +10,7 @@ import { Process } from "@/components/Process";
 import { Testimonials } from "@/components/Testimonials";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { SiteAnimations } from "@/components/SiteAnimations";
 
 export const Route = createFileRoute("/")({
   head: () => ({
