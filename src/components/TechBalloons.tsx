@@ -1,47 +1,20 @@
-import { useState, type CSSProperties, type ReactElement } from "react";
+import { type CSSProperties, type ReactElement } from "react";
 import { Reveal } from "./Reveal";
-import logo from "@/assets/logo.png.asset.json";
-import { assetUrl } from "@/lib/asset-url";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 
-type Planet = {
+type Tool = {
   label: string;
   sub: string;
-  icon: ReactElement;
   color: string;
-  orbit: number;
-  duration: number;
-  offset: number;
-  reverse?: boolean;
-  size: number;
-  spin: number; // self-rotation seconds
-  description: string;
-  highlights: string[];
+  icon: ReactElement;
 };
 
-const planetSize = (size: number) => `clamp(${Math.round(size * 0.62)}px, ${Math.round(size * 0.13)}cqw, ${size}px)`;
-
-const planets: Planet[] = [
+const tools: Tool[] = [
   {
     label: "React",
     sub: "Modern web apps",
     color: "#61DAFB",
-    orbit: 26,
-    duration: 18,
-    offset: 310,
-    size: 84,
-    spin: 8,
-    description:
-      "Component-based SPAs and dashboards built with React 18, hooks and modern state patterns.",
-    highlights: ["Next.js / TanStack", "TypeScript", "Hooks & Context", "Performance tuning"],
     icon: (
-      <svg viewBox="0 0 24 24" className="w-9 h-9" fill="none" stroke="#61DAFB" strokeWidth="1.2">
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="none" stroke="#61DAFB" strokeWidth="1.2">
         <circle cx="12" cy="12" r="2" fill="#61DAFB" />
         <ellipse cx="12" cy="12" rx="10" ry="4" />
         <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)" />
@@ -50,41 +23,24 @@ const planets: Planet[] = [
     ),
   },
   {
-    label: "WordPress",
-    sub: "CMS & blogs",
-    color: "#4FA3D1",
-    orbit: 30,
-    duration: 26,
-    offset: 35,
-    size: 88,
-    spin: 12,
-    description:
-      "Custom WordPress themes and headless setups — fast, SEO-friendly, easy for clients to manage.",
-    highlights: ["Custom themes", "WooCommerce", "Elementor / Gutenberg", "Headless CMS"],
+    label: "Next.js",
+    sub: "SSR & SSG",
+    color: "#E2E8F0",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-9 h-9" fill="#4FA3D1">
-        <circle cx="12" cy="12" r="10" fill="none" stroke="#4FA3D1" strokeWidth="1.4" />
-        <path d="M5 11h14M5 13h14M9 5l6 14M15 5l-6 14" stroke="#4FA3D1" strokeWidth="1" />
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#E2E8F0">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="#E2E8F0" strokeWidth="1.4" />
+        <path d="M8 7v10M8 7l8 10M16 7v7" stroke="#E2E8F0" strokeWidth="1.4" fill="none" />
       </svg>
     ),
   },
   {
-    label: "Custom Website",
-    sub: "Bespoke builds",
-    color: "#60A5FA",
-    orbit: 34,
-    duration: 34,
-    offset: 165,
-    size: 92,
-    spin: 10,
-    description:
-      "From-scratch builds tailored to your brand — pixel-perfect, accessible and blazing fast.",
-    highlights: ["Design systems", "Tailwind CSS", "Animations", "Lighthouse 95+"],
+    label: "WordPress",
+    sub: "CMS & blogs",
+    color: "#4FA3D1",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-9 h-9" fill="none" stroke="#60A5FA" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="16" rx="2" />
-        <path d="M3 9h18" />
-        <path d="m8 14 2 2 4-4" />
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="none" stroke="#4FA3D1" strokeWidth="1.4">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M5 11h14M5 13h14M9 5l6 14M15 5l-6 14" strokeWidth="1" />
       </svg>
     ),
   },
@@ -92,16 +48,8 @@ const planets: Planet[] = [
     label: "Shopify",
     sub: "E-commerce",
     color: "#96BF48",
-    orbit: 37,
-    duration: 43,
-    offset: 250,
-    size: 88,
-    spin: 14,
-    description:
-      "Conversion-focused Shopify stores with custom Liquid themes and seamless checkout flows.",
-    highlights: ["Liquid theming", "App integrations", "Checkout UX", "Speed optimization"],
     icon: (
-      <svg viewBox="0 0 24 24" className="w-9 h-9" fill="#96BF48">
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#96BF48">
         <path d="M15.3 4.4c-.1 0-1.7.1-1.7.1s-1.1-1-1.2-1.1c-.1-.1-.4-.1-.5-.1l-.7 9.6 4.6-1-.5-7.5ZM9 17.4l-2.6.7L4 6.6c0-.1.1-.2.2-.2l1.5-.5c.2.1.4 0 .6-.1l1.5-.5c.2 0 .3 0 .5.1L9 6.1l0 11.3Zm6-3.6c-.6-.3-1-.5-1-.9 0-.4.3-.6.8-.6.4 0 .8.1 1.2.3l.5-1.5s-.4-.3-1.6-.3c-1.7 0-2.9 1-2.9 2.4 0 .8.5 1.4 1.3 1.8.6.3.8.6.8.9 0 .4-.3.7-.8.7-.6 0-1.4-.3-1.8-.6l-.5 1.5c.4.2 1.3.5 2.2.5 1.8 0 3-.9 3-2.4 0-1-.5-1.5-1.2-1.8Z" />
       </svg>
     ),
@@ -110,182 +58,121 @@ const planets: Planet[] = [
     label: "Framer Motion",
     sub: "Animations",
     color: "#BB7CFA",
-    orbit: 40,
-    duration: 54,
-    offset: 95,
-    size: 90,
-    spin: 16,
-    description:
-      "Cinematic motion design — scroll-linked animations, page transitions and micro-interactions.",
-    highlights: ["Scroll animations", "Gestures", "Layout transitions", "GSAP integration"],
     icon: (
-      <svg viewBox="0 0 24 24" className="w-9 h-9" fill="#BB7CFA">
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#BB7CFA">
         <path d="M6 2h12v6H12L6 2Zm0 6h6l6 6H6V8Zm0 6h6v6l-6-6Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Tailwind CSS",
+    sub: "Utility styling",
+    color: "#38BDF8",
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#38BDF8">
+        <path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.8 2 1.4 1 1 2.2 2.1 4.5 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.8-2-1.4C15.5 7.1 14.3 6 12 6Zm-5 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.8 2 1.4 1 1 2.2 2.1 4.5 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.8-2-1.4-1-1-2.2-2.1-4.5-2.1Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "TypeScript",
+    sub: "Type-safe code",
+    color: "#3178C6",
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#3178C6">
+        <rect x="2" y="2" width="20" height="20" rx="3" />
+        <path d="M9 11H6.5v6H8v-4.5h1V11Zm1.5 0v1.5h2V17H14v-4.5h2V11h-5.5Z" fill="#fff" />
+      </svg>
+    ),
+  },
+  {
+    label: "Figma",
+    sub: "Design handoff",
+    color: "#F472B6",
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="#F472B6">
+        <circle cx="9" cy="5" r="3" />
+        <circle cx="15" cy="5" r="3" opacity=".7" />
+        <circle cx="9" cy="12" r="3" opacity=".85" />
+        <circle cx="15" cy="12" r="3" opacity=".55" />
+        <circle cx="9" cy="19" r="3" opacity=".7" />
       </svg>
     ),
   },
 ];
 
 export function TechBalloons() {
-  const [active, setActive] = useState<Planet | null>(null);
-
   return (
-    <section id="skills" className="py-24 md:py-32 overflow-hidden">
+    <section id="skills" className="py-24 md:py-32 relative overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(60% 50% at 50% 30%, oklch(0.55 0.2 250 / 0.18), transparent 70%), radial-gradient(40% 35% at 80% 80%, oklch(0.65 0.22 250 / 0.12), transparent 70%)",
+        }}
+      />
+
       <div className="max-w-7xl mx-auto px-5 md:px-8">
         <Reveal className="text-center max-w-2xl mx-auto">
           <div className="label-tiny">Tech Stack</div>
           <h2 className="text-[clamp(32px,5vw,56px)] font-bold leading-[1.05] tracking-[-0.035em] mt-4 mb-5">
-            Aryan's Solar System
+            Tools I build with
           </h2>
           <p className="text-foreground/65 text-base md:text-lg">
-            Tap a planet — every tool I build with, orbiting one calm center.
+            A focused stack — handpicked, fast, and reliable.
           </p>
         </Reveal>
 
         <Reveal>
-          <div className="solar-system-stage relative mt-16 md:mt-24 mx-auto aspect-square w-full max-w-[min(760px,92vw)]">
-            <div aria-hidden className="solar-comet" />
-            {/* orbit rings */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              {planets.map((p) => (
-                <div
-                  key={`ring-${p.label}`}
-                  className="solar-ring absolute rounded-full border border-white/[0.08]"
-                  style={{ width: `${p.orbit * 2}%`, height: `${p.orbit * 2}%` }}
-                />
-              ))}
-            </div>
-
-            {/* soft sun glow */}
-            <div
-              aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] h-[55%] rounded-full pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(circle, oklch(0.65 0.22 250 / 0.28), transparent 65%)",
-                filter: "blur(20px)",
-              }}
-            />
-
-            {/* sun = logo hub */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
+          <div className="mt-14 md:mt-20 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+            {tools.map((t, i) => (
               <div
-                className="solar-sun relative w-[30vw] h-[30vw] max-w-[210px] max-h-[210px] min-w-[128px] min-h-[128px] rounded-full glass-blue flex items-center justify-center"
+                key={t.label}
+                className="tool-float group relative rounded-2xl p-6 flex flex-col items-center text-center border border-white/10 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-white/25"
                 style={{
+                  background:
+                    "linear-gradient(140deg, oklch(1 0 0 / 0.07), oklch(1 0 0 / 0.02) 60%, oklch(0.55 0.2 250 / 0.06))",
                   boxShadow:
-                    "0 0 80px oklch(0.65 0.22 250 / 0.55), inset 0 0 40px oklch(0.65 0.22 250 / 0.25)",
-                }}
-              >
-                <img
-                  src={assetUrl(logo)}
-                  alt="Aryan Patel logo"
-                  className="w-[78%] h-[78%] object-contain rounded-full drop-shadow-[0_10px_40px_oklch(0.65_0.22_250/0.6)]"
-                  style={{ animation: "orbit-spin 34s linear infinite" }}
-                />
-                <span
-                  aria-hidden
-                  className="absolute inset-0 rounded-full animate-pulse-soft"
-                  style={{ boxShadow: "0 0 0 1px oklch(0.65 0.22 250 / 0.5)" }}
-                />
-              </div>
-            </div>
-
-            {/* orbiting planets */}
-            {planets.map((p) => (
-              <div
-                key={p.label}
-                className="planet-track absolute z-20 pointer-events-none"
-                style={{
-                  "--orbit-distance": `${p.orbit}cqw`,
-                  "--start-angle": `${p.offset}deg`,
-                  "--end-angle": `${p.offset + 360}deg`,
-                  "--orbit-time": `${p.duration}s`,
+                    "0 10px 40px -12px oklch(0.55 0.2 250 / 0.35), inset 0 1px 0 oklch(1 0 0 / 0.08)",
+                  animationDelay: `${(i % 4) * 0.4}s`,
                 } as CSSProperties}
               >
-                <div
-                  className="planet-upright pointer-events-auto"
+                <span
+                  aria-hidden
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{
-                    "--orbit-time": `${p.duration}s`,
-                    "--counter-start": `${-p.offset}deg`,
-                    "--counter-end": `${-p.offset - 360}deg`,
-                  } as CSSProperties}
+                    background: `radial-gradient(80% 60% at 50% 0%, ${t.color}22, transparent 70%)`,
+                  }}
+                />
+                <div
+                  className="relative w-16 h-16 rounded-full flex items-center justify-center mb-4"
+                  style={{
+                    background: `radial-gradient(circle at 30% 25%, oklch(1 0 0 / 0.18), ${t.color}22 60%, transparent 100%)`,
+                    boxShadow: `inset 0 0 18px ${t.color}33, 0 0 24px -4px ${t.color}44`,
+                  }}
                 >
-                    <div className="relative group flex flex-col items-center">
-                      <button
-                        type="button"
-                        onClick={() => setActive(p)}
-                        aria-label={`${p.label} — view details`}
-                        className="planet-button rounded-full flex items-center justify-center transition-transform duration-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                        style={{
-                          width: planetSize(p.size),
-                          height: planetSize(p.size),
-                          background: `radial-gradient(circle at 32% 24%, oklch(1 0 0 / 0.92), ${p.color} 24%, ${p.color}99 54%, oklch(0.04 0.02 260 / 0.96) 100%)`,
-                          boxShadow: `0 14px 40px -10px ${p.color}55, inset 0 0 22px ${p.color}22, 0 0 0 1px ${p.color}33`,
-                        }}
-                      >
-                        <span className="planet-spin" style={{ "--spin-time": `${p.spin}s` } as CSSProperties}>
-                          {p.icon}
-                        </span>
-                      </button>
-                      <div className="mt-2 text-center whitespace-nowrap pointer-events-none">
-                        <div className="text-xs md:text-sm font-semibold">{p.label}</div>
-                        <div className="text-[10px] md:text-[11px] text-foreground/55">{p.sub}</div>
-                      </div>
-                    </div>
+                  {t.icon}
                 </div>
+                <div className="text-sm md:text-base font-semibold">{t.label}</div>
+                <div className="text-[11px] md:text-xs text-foreground/55 mt-1">{t.sub}</div>
               </div>
             ))}
           </div>
         </Reveal>
       </div>
 
-      <Dialog open={!!active} onOpenChange={(o) => !o && setActive(null)}>
-        <DialogContent className="glass border-white/10 sm:max-w-md">
-          {active && (
-            <>
-              <DialogHeader>
-                <div className="flex items-center gap-4">
-                  <div
-                    className="rounded-full glass flex items-center justify-center shrink-0"
-                    style={{
-                      width: 64,
-                      height: 64,
-                      boxShadow: `0 14px 40px -10px ${active.color}55, inset 0 0 22px ${active.color}22, 0 0 0 1px ${active.color}33`,
-                    }}
-                  >
-                    {active.icon}
-                  </div>
-                  <div className="text-left">
-                    <DialogTitle className="text-xl">{active.label}</DialogTitle>
-                    <DialogDescription className="text-xs uppercase tracking-[0.18em] mt-1" style={{ color: active.color }}>
-                      {active.sub}
-                    </DialogDescription>
-                  </div>
-                </div>
-              </DialogHeader>
-              <p className="text-sm text-foreground/75 leading-relaxed">{active.description}</p>
-              <div className="flex flex-wrap gap-2 pt-1">
-                {active.highlights.map((h) => (
-                  <span
-                    key={h}
-                    className="text-[11px] px-2.5 py-1 rounded-full border"
-                    style={{ borderColor: `${active.color}44`, color: active.color, background: `${active.color}10` }}
-                  >
-                    {h}
-                  </span>
-                ))}
-              </div>
-              <a
-                href="#contact"
-                onClick={() => setActive(null)}
-                className="mt-2 inline-flex items-center justify-center w-full h-11 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-              >
-                Start a {active.label} project →
-              </a>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+      <style>{`
+        @keyframes toolFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        .tool-float { animation: toolFloat 6s ease-in-out infinite; }
+        .tool-float:hover { animation-play-state: paused; }
+        @media (prefers-reduced-motion: reduce) {
+          .tool-float { animation: none; }
+        }
+      `}</style>
     </section>
   );
 }
