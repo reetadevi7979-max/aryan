@@ -127,7 +127,7 @@ export function TechBalloons() {
         </Reveal>
 
         <Reveal>
-          <div className="mt-14 md:mt-20 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+          <div data-gsap-stagger className="mt-14 md:mt-20 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
             {tools.map((t, i) => (
               <div
                 key={t.label}

@@ -114,12 +114,14 @@ export function Hero() {
 
         <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
           <a
+            data-magnetic
             href="#work"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[15px] font-semibold text-primary-foreground bg-gradient-to-b from-primary-glow to-primary shadow-[0_4px_14px_oklch(0.65_0.22_250/0.4),inset_0_1px_0_oklch(1_0_0/0.3)] hover:scale-[1.03] hover:shadow-[0_8px_30px_oklch(0.65_0.22_250/0.55)] transition-all"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[15px] font-semibold text-primary-foreground bg-gradient-to-b from-primary-glow to-primary shadow-[0_4px_14px_oklch(0.65_0.22_250/0.4),inset_0_1px_0_oklch(1_0_0/0.3)] hover:shadow-[0_8px_30px_oklch(0.65_0.22_250/0.55)] transition-shadow"
           >
             View My Work <ArrowRight size={16} />
           </a>
           <a
+            data-magnetic
             href="#contact"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[15px] font-semibold glass hover:bg-white/[0.08] transition-all"
           >

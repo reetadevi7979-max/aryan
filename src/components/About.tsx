@@ -85,7 +85,7 @@ export function About() {
           </Reveal>
 
           <Reveal>
-            <div className="relative aspect-square rounded-[2rem] overflow-hidden border border-border backdrop-blur-2xl flex items-center justify-center"
+            <div data-gsap="zoom" className="relative aspect-square rounded-[2rem] overflow-hidden border border-border backdrop-blur-2xl flex items-center justify-center"
               style={{
                 background:
                   "radial-gradient(circle at 50% 50%, oklch(0.65 0.22 250 / 0.18), oklch(0.65 0.22 250 / 0.02) 70%)",
