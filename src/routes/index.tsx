@@ -43,13 +43,15 @@ function Index() {
       <main>
         <Hero />
         <MarqueeSkills />
-        <TechBalloons />
-        <About />
-        <Services />
-        <Work />
-        <Process />
-        <Testimonials />
-        <Contact />
+        <div className="space-y-6 md:space-y-10 px-3 md:px-6 py-6">
+          <SectionCard><TechBalloons /></SectionCard>
+          <SectionCard><About /></SectionCard>
+          <SectionCard><Services /></SectionCard>
+          <SectionCard><Work /></SectionCard>
+          <SectionCard><Process /></SectionCard>
+          <SectionCard><Testimonials /></SectionCard>
+          <SectionCard><Contact /></SectionCard>
+        </div>
       </main>
       <Footer />
     </div>
