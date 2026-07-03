@@ -11,6 +11,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { SiteAnimations } from "@/components/SiteAnimations";
+import { SectionCard } from "@/components/SectionCard";
 
 export const Route = createFileRoute("/")({
   head: () => ({
