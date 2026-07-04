@@ -110,28 +110,8 @@ export function SiteAnimations() {
         el.addEventListener("mouseleave", leave);
       });
 
-      // ── Custom cursor ──────────────────────────────────────────
-      const isFine = window.matchMedia("(pointer: fine)").matches;
-      if (isFine && cursorRef.current && cursorDotRef.current) {
-        const cursor = cursorRef.current;
-        const dot = cursorDotRef.current;
-        gsap.set([cursor, dot], { xPercent: -50, yPercent: -50 });
-        const xTo = gsap.quickTo(cursor, "x", { duration: 0.5, ease: "power3" });
-        const yTo = gsap.quickTo(cursor, "y", { duration: 0.5, ease: "power3" });
-        const dx = gsap.quickTo(dot, "x", { duration: 0.1, ease: "power3" });
-        const dy = gsap.quickTo(dot, "y", { duration: 0.1, ease: "power3" });
-        const onMove = (e: MouseEvent) => {
-          xTo(e.clientX); yTo(e.clientY); dx(e.clientX); dy(e.clientY);
-        };
-        const grow = () => gsap.to(cursor, { scale: 2.2, duration: 0.35, ease: "power3.out" });
-        const shrink = () => gsap.to(cursor, { scale: 1, duration: 0.35, ease: "power3.out" });
-        window.addEventListener("mousemove", onMove);
-        document.querySelectorAll("a, button, [data-magnetic]").forEach((el) => {
-          el.addEventListener("mouseenter", grow);
-          el.addEventListener("mouseleave", shrink);
-        });
-      }
     });
+
 
     return () => ctx.revert();
   }, []);
