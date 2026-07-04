@@ -12,7 +12,7 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { SiteAnimations } from "@/components/SiteAnimations";
 import { SectionCard } from "@/components/SectionCard";
-import { ScrollTiltShowcase } from "@/components/ScrollTiltShowcase";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,7 +46,6 @@ function Index() {
         <MarqueeSkills />
         <div className="space-y-6 md:space-y-10 px-3 md:px-6 py-6">
           <SectionCard><TechBalloons /></SectionCard>
-          <ScrollTiltShowcase />
           <SectionCard><About /></SectionCard>
           <SectionCard><Services /></SectionCard>
           <SectionCard><Work /></SectionCard>
