@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, Star } from "lucide-react";
+
 
 export function Hero() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -60,6 +62,26 @@ export function Hero() {
 
   const line1 = ["Building", "Digital"];
   const line2 = ["Experiences", "That", "Convert."];
+  const allWords = [...line1, ...line2];
+  const subline = "4+ years crafting high-performance websites for content creators, brands, and visionaries worldwide.".split(" ");
+
+  // "Fall and fit" — each word drops from above, overshoots slightly, then locks
+  const fallWord = {
+    hidden: { y: "-120%", opacity: 0, rotate: -6, filter: "blur(6px)" },
+    show: (i: number) => ({
+      y: 0,
+      opacity: 1,
+      rotate: 0,
+      filter: "blur(0px)",
+      transition: {
+        delay: 0.15 + i * 0.09,
+        type: "spring" as const,
+        stiffness: 380,
+        damping: 22,
+        mass: 0.9,
+      },
+    }),
+  };
 
   return (
     <section
@@ -80,39 +102,71 @@ export function Hero() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-5">
         {/* Status pill */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass mb-8 text-xs font-medium tracking-[0.12em] uppercase text-foreground/80">
+        <motion.div
+          initial={{ y: -40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 320, damping: 22, delay: 0.05 }}
+          className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass mb-8 text-xs font-medium tracking-[0.12em] uppercase text-foreground/80"
+        >
           <span className="relative inline-flex w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_#34d399] animate-pulse-soft" />
           Available for Projects
-        </div>
+        </motion.div>
 
         <h1 className="text-[clamp(44px,8vw,96px)] font-bold leading-[1.02] tracking-[-0.04em] mb-7">
-          <div>
+          <div className="flex flex-wrap justify-center gap-x-4">
             {line1.map((w, i) => (
-              <span key={w} className="word-reveal mr-3">
-                <span style={{ animationDelay: `${0.05 + i * 0.08}s` }}>{w}</span>
+              <span key={w} className="inline-block overflow-hidden pb-1">
+                <motion.span
+                  className="inline-block"
+                  variants={fallWord}
+                  initial="hidden"
+                  animate="show"
+                  custom={i}
+                >
+                  {w}
+                </motion.span>
               </span>
             ))}
           </div>
-          <div>
+          <div className="flex flex-wrap justify-center gap-x-4">
             {line2.map((w, i) => (
-              <span key={w} className="word-reveal mr-3">
-                <span
-                  className="text-gradient"
-                  style={{ animationDelay: `${0.25 + i * 0.08}s` }}
+              <span key={w} className="inline-block overflow-hidden pb-1">
+                <motion.span
+                  className="inline-block text-gradient"
+                  variants={fallWord}
+                  initial="hidden"
+                  animate="show"
+                  custom={line1.length + i}
                 >
                   {w}
-                </span>
+                </motion.span>
               </span>
             ))}
           </div>
         </h1>
 
-        <p className="text-base md:text-lg text-foreground/65 max-w-xl mx-auto leading-[1.7] mb-10">
-          4+ years crafting high-performance websites for content creators, brands,
-          and visionaries worldwide.
+        <p className="text-base md:text-lg text-foreground/65 max-w-xl mx-auto leading-[1.7] mb-10 flex flex-wrap justify-center gap-x-1.5">
+          {subline.map((w, i) => (
+            <span key={i} className="inline-block overflow-hidden">
+              <motion.span
+                className="inline-block"
+                variants={fallWord}
+                initial="hidden"
+                animate="show"
+                custom={allWords.length + i * 0.5}
+              >
+                {w}
+              </motion.span>
+            </span>
+          ))}
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.9, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-wrap items-center justify-center gap-3 mb-12"
+        >
           <a
             data-magnetic
             href="#work"
@@ -127,7 +181,8 @@ export function Hero() {
           >
             Let's Talk
           </a>
-        </div>
+        </motion.div>
+
 
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-foreground/60 text-sm">
           <div className="flex" aria-hidden>
