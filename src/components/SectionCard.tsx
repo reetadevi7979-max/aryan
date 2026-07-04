@@ -1,13 +1,10 @@
-import { useEffect, useRef, type ReactNode } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useRef, type ReactNode } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 /**
  * Scroll-driven "section as card" wrapper.
- * Each section becomes a rounded card that scales + fades based on scroll
- * progress — the previous card scales down and dims as the next one rises up.
+ * Each section becomes a 3D-tilting card driven by scroll progress —
+ * fades in, scales up, rotates on the X-axis, then eases back out.
  */
 export function SectionCard({
   children,
@@ -19,73 +16,60 @@ export function SectionCard({
   id?: string;
 }) {
   const wrapRef = useRef<HTMLDivElement | null>(null);
-  const cardRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
+  const { scrollYProgress } = useScroll({
+    target: wrapRef,
+    offset: ["start end", "end start"],
+  });
 
-    const ctx = gsap.context(() => {
-      const card = cardRef.current;
-      const wrap = wrapRef.current;
-      if (!card || !wrap) return;
+  const p = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 26,
+    mass: 0.4,
+  });
 
-      // Entry: rise from below with scale + fade
-      gsap.fromTo(
-        card,
-        { y: 80, scale: 0.94, opacity: 0.4, borderRadius: "48px" },
-        {
-          y: 0,
-          scale: 1,
-          opacity: 1,
-          borderRadius: "32px",
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: wrap,
-            start: "top 90%",
-            end: "top 40%",
-            scrub: 1,
-          },
-        },
-      );
-
-      // Exit: press back with scale-down + slight fade as user scrolls past
-      gsap.to(card, {
-        scale: 0.9,
-        opacity: 0.55,
-        y: -40,
-        ease: "power2.in",
-        scrollTrigger: {
-          trigger: wrap,
-          start: "bottom 80%",
-          end: "bottom 20%",
-          scrub: 1,
-        },
-      });
-    }, wrapRef);
-
-    return () => ctx.revert();
-  }, []);
+  const opacity = useTransform(p, [0, 0.25, 0.8, 1], [0, 1, 1, 0.5]);
+  const scale = useTransform(p, [0, 0.5, 1], [0.86, 1, 0.95]);
+  const rotateX = useTransform(p, [0, 0.5, 1], [30, 0, -14]);
+  const y = useTransform(p, [0, 0.5], [80, 0]);
+  const glow = useTransform(p, [0, 0.5, 1], [0, 0.5, 0.25]);
 
   return (
-    <div ref={wrapRef} className="section-card-wrap relative">
-      <div
-        ref={cardRef}
+    <div
+      ref={wrapRef}
+      className="section-card-wrap relative"
+      style={{ perspective: "1600px" }}
+    >
+      <motion.div
+        aria-hidden
+        className="absolute inset-0 -z-10 pointer-events-none"
+        style={{
+          opacity: glow,
+          background:
+            "radial-gradient(50% 40% at 50% 50%, oklch(0.55 0.2 250 / 0.28), transparent 70%)",
+        }}
+      />
+      <motion.div
         id={id}
         className={`section-card relative overflow-hidden rounded-[32px] ${className}`}
         style={{
+          opacity,
+          scale,
+          rotateX,
+          y,
+          transformStyle: "preserve-3d",
+          transformOrigin: "center 85%",
           background:
             "linear-gradient(160deg, oklch(0.22 0.03 250 / 0.6), oklch(0.14 0.02 250 / 0.4) 60%, oklch(0.55 0.2 250 / 0.08))",
           border: "1px solid oklch(1 0 0 / 0.06)",
           boxShadow:
-            "0 30px 80px -30px oklch(0.55 0.2 250 / 0.35), inset 0 1px 0 oklch(1 0 0 / 0.06)",
+            "0 40px 100px -30px oklch(0.55 0.2 250 / 0.45), inset 0 1px 0 oklch(1 0 0 / 0.06)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
         }}
       >
         {children}
-      </div>
+      </motion.div>
     </div>
   );
 }
