@@ -34,48 +34,57 @@ export function Hero() {
       className="relative min-h-[100svh] flex items-center justify-center text-center pt-32 pb-20 overflow-hidden"
     >
       {/* Chromatic moving background */}
-      <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div aria-hidden className="absolute inset-0 -z-0 overflow-hidden pointer-events-none">
         <div
-          className="absolute -top-1/3 -left-1/4 w-[70vw] h-[70vw] rounded-full opacity-70 mix-blend-screen animate-chroma-a"
+          className="absolute -top-1/4 -left-1/4 w-[80vw] h-[80vw] rounded-full animate-chroma-a"
           style={{
             background:
-              "radial-gradient(circle at 30% 30%, oklch(0.72 0.22 260 / 0.9), transparent 60%)",
-            filter: "blur(90px)",
+              "radial-gradient(circle at 30% 30%, oklch(0.62 0.26 265 / 0.85), transparent 60%)",
+            filter: "blur(80px)",
           }}
         />
         <div
-          className="absolute top-1/4 -right-1/4 w-[65vw] h-[65vw] rounded-full opacity-70 mix-blend-screen animate-chroma-b"
+          className="absolute top-0 -right-1/4 w-[75vw] h-[75vw] rounded-full animate-chroma-b"
           style={{
             background:
-              "radial-gradient(circle at 60% 40%, oklch(0.70 0.24 320 / 0.85), transparent 60%)",
+              "radial-gradient(circle at 60% 40%, oklch(0.58 0.28 320 / 0.75), transparent 60%)",
             filter: "blur(100px)",
           }}
         />
         <div
-          className="absolute -bottom-1/3 left-1/4 w-[75vw] h-[75vw] rounded-full opacity-60 mix-blend-screen animate-chroma-c"
+          className="absolute -bottom-1/4 left-1/4 w-[85vw] h-[85vw] rounded-full animate-chroma-c"
           style={{
             background:
-              "radial-gradient(circle at 50% 50%, oklch(0.75 0.20 200 / 0.85), transparent 60%)",
+              "radial-gradient(circle at 50% 50%, oklch(0.60 0.24 210 / 0.75), transparent 60%)",
             filter: "blur(110px)",
           }}
         />
         <div
-          className="absolute top-1/3 left-1/3 w-[55vw] h-[55vw] rounded-full opacity-55 mix-blend-screen animate-chroma-d"
+          className="absolute top-1/3 left-1/3 w-[60vw] h-[60vw] rounded-full animate-chroma-d"
           style={{
             background:
-              "radial-gradient(circle at 40% 60%, oklch(0.78 0.18 160 / 0.75), transparent 60%)",
+              "radial-gradient(circle at 40% 60%, oklch(0.68 0.20 160 / 0.55), transparent 60%)",
             filter: "blur(120px)",
           }}
         />
-        {/* subtle grain overlay */}
+        {/* grain */}
         <div
-          className="absolute inset-0 opacity-[0.05]"
+          className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
           style={{
             backgroundImage:
-              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>\")",
+              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/></svg>\")",
+          }}
+        />
+        {/* vignette to keep text legible */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 30%, oklch(0.12 0.02 260 / 0.55) 80%)",
           }}
         />
       </div>
+
 
 
       <div className="relative z-10 max-w-5xl mx-auto px-5">
