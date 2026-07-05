@@ -1,64 +1,9 @@
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Star } from "lucide-react";
 
 
 export function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const cvs = canvasRef.current;
-    if (!cvs) return;
-    const ctx = cvs.getContext("2d");
-    if (!ctx) return;
-
-    let raf = 0;
-    let parts: { x: number; y: number; r: number; vx: number; vy: number; a: number }[] = [];
-    let w = 0;
-    let h = 0;
-
-    const resize = () => {
-      const parent = cvs.parentElement;
-      if (!parent) return;
-      w = cvs.width = parent.offsetWidth;
-      h = cvs.height = parent.offsetHeight;
-      const count = Math.min(60, Math.floor(w / 26));
-      parts = Array.from({ length: count }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: Math.random() * 1.6 + 0.3,
-        vx: (Math.random() - 0.5) * 0.15,
-        vy: (Math.random() - 0.5) * 0.15,
-        a: Math.random() * 0.6 + 0.2,
-      }));
-    };
-
-    const draw = () => {
-      ctx.clearRect(0, 0, w, h);
-      for (const p of parts) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = w;
-        if (p.x > w) p.x = 0;
-        if (p.y < 0) p.y = h;
-        if (p.y > h) p.y = 0;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(147,197,253,${p.a})`;
-        ctx.fill();
-      }
-      raf = requestAnimationFrame(draw);
-    };
-
-    resize();
-    draw();
-    window.addEventListener("resize", resize);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
 
   const line1 = ["Building", "Digital"];
   const line2 = ["Experiences", "That", "Convert."];
@@ -88,17 +33,50 @@ export function Hero() {
       id="top"
       className="relative min-h-[100svh] flex items-center justify-center text-center pt-32 pb-20 overflow-hidden"
     >
-      {/* Ambient orb */}
-      <div
-        aria-hidden
-        className="absolute top-1/2 left-1/2 w-[900px] h-[900px] max-w-[120vw] max-h-[120vw] -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-orb"
-        style={{
-          background:
-            "radial-gradient(circle, oklch(0.65 0.22 250 / 0.35) 0%, oklch(0.65 0.22 250 / 0.08) 30%, transparent 65%)",
-          filter: "blur(40px)",
-        }}
-      />
-      <canvas ref={canvasRef} aria-hidden className="absolute inset-0 pointer-events-none" />
+      {/* Chromatic moving background */}
+      <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute -top-1/3 -left-1/4 w-[70vw] h-[70vw] rounded-full opacity-70 mix-blend-screen animate-chroma-a"
+          style={{
+            background:
+              "radial-gradient(circle at 30% 30%, oklch(0.72 0.22 260 / 0.9), transparent 60%)",
+            filter: "blur(90px)",
+          }}
+        />
+        <div
+          className="absolute top-1/4 -right-1/4 w-[65vw] h-[65vw] rounded-full opacity-70 mix-blend-screen animate-chroma-b"
+          style={{
+            background:
+              "radial-gradient(circle at 60% 40%, oklch(0.70 0.24 320 / 0.85), transparent 60%)",
+            filter: "blur(100px)",
+          }}
+        />
+        <div
+          className="absolute -bottom-1/3 left-1/4 w-[75vw] h-[75vw] rounded-full opacity-60 mix-blend-screen animate-chroma-c"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 50%, oklch(0.75 0.20 200 / 0.85), transparent 60%)",
+            filter: "blur(110px)",
+          }}
+        />
+        <div
+          className="absolute top-1/3 left-1/3 w-[55vw] h-[55vw] rounded-full opacity-55 mix-blend-screen animate-chroma-d"
+          style={{
+            background:
+              "radial-gradient(circle at 40% 60%, oklch(0.78 0.18 160 / 0.75), transparent 60%)",
+            filter: "blur(120px)",
+          }}
+        />
+        {/* subtle grain overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>\")",
+          }}
+        />
+      </div>
+
 
       <div className="relative z-10 max-w-5xl mx-auto px-5">
         {/* Status pill */}
