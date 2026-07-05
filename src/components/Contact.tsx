@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Reveal } from "./Reveal";
+import { motion, type Variants } from "framer-motion";
 import {
   Mail,
   Instagram,
@@ -22,6 +22,71 @@ const projectTypes = [
   "Redesign",
   "Other",
 ];
+
+// Same "fall and fit" spring as the hero
+const fallWord: Variants = {
+  hidden: { y: "-120%", opacity: 0, rotate: -6, filter: "blur(6px)" },
+  show: (i: number) => ({
+    y: 0,
+    opacity: 1,
+    rotate: 0,
+    filter: "blur(0px)",
+    transition: {
+      delay: 0.05 + i * 0.07,
+      type: "spring",
+      stiffness: 380,
+      damping: 22,
+      mass: 0.9,
+    },
+  }),
+};
+
+const rise: Variants = {
+  hidden: { y: 40, opacity: 0, filter: "blur(8px)" },
+  show: (i: number = 0) => ({
+    y: 0,
+    opacity: 1,
+    filter: "blur(0px)",
+    transition: {
+      delay: 0.1 + i * 0.06,
+      type: "spring",
+      stiffness: 320,
+      damping: 26,
+      mass: 0.8,
+    },
+  }),
+};
+
+function FallWords({
+  text,
+  className = "",
+  offset = 0,
+  gradient = false,
+}: {
+  text: string;
+  className?: string;
+  offset?: number;
+  gradient?: boolean;
+}) {
+  return (
+    <span className={`flex flex-wrap gap-x-[0.28em] gap-y-1 ${className}`}>
+      {text.split(" ").map((w, i) => (
+        <span key={`${w}-${i}`} className="inline-block overflow-hidden pb-[0.08em]">
+          <motion.span
+            className={`inline-block ${gradient ? "text-gradient" : ""}`}
+            variants={fallWord}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.4 }}
+            custom={offset + i}
+          >
+            {w}
+          </motion.span>
+        </span>
+      ))}
+    </span>
+  );
+}
 
 export function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -54,132 +119,202 @@ export function Contact() {
 
   return (
     <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
-      {/* Ambient chroma to echo hero */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none -z-0">
+      {/* Chromatic moving background — same system as hero */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none -z-0 overflow-hidden">
         <div
-          className="absolute top-10 left-1/4 w-[45vw] h-[45vw] rounded-full opacity-40"
+          className="absolute -top-1/4 -left-1/4 w-[70vw] h-[70vw] rounded-full animate-chroma-a"
           style={{
             background:
-              "radial-gradient(circle, oklch(0.62 0.26 265 / 0.6), transparent 60%)",
+              "radial-gradient(circle at 30% 30%, oklch(0.62 0.26 265 / 0.65), transparent 60%)",
+            filter: "blur(100px)",
+          }}
+        />
+        <div
+          className="absolute -bottom-1/4 -right-1/4 w-[70vw] h-[70vw] rounded-full animate-chroma-b"
+          style={{
+            background:
+              "radial-gradient(circle at 60% 40%, oklch(0.58 0.28 320 / 0.6), transparent 60%)",
+            filter: "blur(110px)",
+          }}
+        />
+        <div
+          className="absolute top-1/3 -right-1/4 w-[60vw] h-[60vw] rounded-full animate-chroma-c"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 50%, oklch(0.60 0.24 210 / 0.55), transparent 60%)",
             filter: "blur(120px)",
           }}
         />
         <div
-          className="absolute bottom-0 right-1/4 w-[40vw] h-[40vw] rounded-full opacity-40"
+          className="absolute bottom-1/4 left-1/3 w-[55vw] h-[55vw] rounded-full animate-chroma-d"
           style={{
             background:
-              "radial-gradient(circle, oklch(0.58 0.28 320 / 0.55), transparent 60%)",
+              "radial-gradient(circle at 40% 60%, oklch(0.68 0.20 160 / 0.4), transparent 60%)",
             filter: "blur(120px)",
+          }}
+        />
+        {/* vignette */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 40%, oklch(0.04 0.01 260 / 0.55) 85%)",
           }}
         />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-5 md:px-8">
-        <Reveal>
-          {/* Section header */}
-          <div className="text-center mb-14 md:mb-20">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-[11px] tracking-[0.18em] uppercase text-foreground/70 mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399] animate-pulse" />
-              Currently taking 2 projects for August
-            </div>
-            <h2 className="text-[clamp(36px,6vw,72px)] font-bold leading-[1.02] tracking-[-0.04em]">
-              Let's build something <br />
-              <span className="text-gradient">worth remembering.</span>
-            </h2>
-            <p className="text-foreground/60 text-base md:text-lg max-w-2xl mx-auto mt-6 leading-[1.7]">
-              Tell me about your idea. I reply personally within 24 hours with a plan,
-              timeline, and a fixed quote — no forms, no bots.
-            </p>
+        {/* Section header */}
+        <div className="text-center mb-14 md:mb-20">
+          <motion.div
+            variants={rise}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-[11px] tracking-[0.18em] uppercase text-foreground/70 mb-6"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399] animate-pulse" />
+            Currently taking 2 projects for August
+          </motion.div>
+          <h2 className="text-[clamp(36px,6vw,72px)] font-bold leading-[1.02] tracking-[-0.04em]">
+            <FallWords text="Let's build something" className="justify-center" />
+            <FallWords
+              text="worth remembering."
+              className="justify-center"
+              offset={3}
+              gradient
+            />
+          </h2>
+          <div className="max-w-2xl mx-auto mt-6">
+            <FallWords
+              text="Tell me about your idea. I reply personally within 24 hours with a plan, timeline, and a fixed quote — no forms, no bots."
+              className="justify-center text-foreground/60 text-base md:text-lg leading-[1.7]"
+              offset={6}
+            />
           </div>
+        </div>
 
-          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-6 lg:gap-8">
-            {/* LEFT — info column */}
-            <div className="space-y-6">
-              {/* Stats card */}
-              <div className="relative glass rounded-3xl p-6 md:p-8 overflow-hidden">
-                <div
-                  aria-hidden
-                  className="absolute inset-0 pointer-events-none opacity-60"
-                  style={{
-                    background:
-                      "radial-gradient(circle at 20% 0%, oklch(0.65 0.22 250 / 0.25), transparent 60%)",
-                  }}
-                />
-                <div className="relative grid grid-cols-3 gap-4">
-                  <Stat value="< 24h" label="Response time" />
-                  <Stat value="4+ yrs" label="Freelancing" />
-                  <Stat value="5.0★" label="Fiverr rating" />
-                </div>
-              </div>
-
-              {/* Availability info */}
-              <div className="glass rounded-3xl p-6 md:p-7 space-y-4">
-                <InfoRow
-                  icon={<Clock size={16} />}
-                  title="Working hours"
-                  desc="Mon – Sat · 9:00 – 20:00 IST"
-                />
-                <InfoRow
-                  icon={<MapPin size={16} />}
-                  title="Based in"
-                  desc="India · Working with clients worldwide"
-                />
-                <InfoRow
-                  icon={<Globe size={16} />}
-                  title="Timezone friendly"
-                  desc="Async-first · Overlaps with EU & US mornings"
-                />
-              </div>
-
-              {/* Social channels */}
-              <div className="space-y-3">
-                <SocialCard
-                  href="mailto:ar.work.freelance@gmail.com"
-                  icon={<Mail size={18} />}
-                  title="Email"
-                  handle="ar.work.freelance@gmail.com"
-                />
-                <SocialCard
-                  href="https://www.instagram.com/ar.work.freelance"
-                  icon={<Instagram size={18} />}
-                  title="Instagram"
-                  handle="@ar.work.freelance"
-                />
-                <SocialCard
-                  href="https://www.fiverr.com/s/2KbwPQ8"
-                  icon={<span className="font-black text-sm">fiv</span>}
-                  title="Fiverr"
-                  handle="5.0 ★ rated seller"
-                />
-              </div>
-            </div>
-
-            {/* RIGHT — form */}
-            <form
-              onSubmit={onSubmit}
-              className="relative glass rounded-3xl p-6 sm:p-8 md:p-10 space-y-5 overflow-hidden"
+        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-6 lg:gap-8">
+          {/* LEFT — info column */}
+          <div className="space-y-6">
+            {/* Stats card */}
+            <motion.div
+              variants={rise}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.3 }}
+              custom={0}
+              className="relative glass rounded-3xl p-6 md:p-8 overflow-hidden"
             >
               <div
                 aria-hidden
-                className="absolute -top-24 -right-24 w-[380px] h-[380px] rounded-full pointer-events-none opacity-50"
+                className="absolute inset-0 pointer-events-none opacity-60"
                 style={{
                   background:
-                    "radial-gradient(circle, oklch(0.65 0.22 250 / 0.35), transparent 65%)",
-                  filter: "blur(50px)",
+                    "radial-gradient(circle at 20% 0%, oklch(0.65 0.22 250 / 0.25), transparent 60%)",
                 }}
               />
-
-              <div className="relative flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase text-foreground/60 mb-2">
-                <Sparkles size={12} className="text-primary-glow" />
-                Project brief
+              <div className="relative grid grid-cols-3 gap-4">
+                <Stat value="< 24h" label="Response time" />
+                <Stat value="4+ yrs" label="Freelancing" />
+                <Stat value="5.0★" label="Fiverr rating" />
               </div>
+            </motion.div>
 
-              {/* honeypot + formsubmit config */}
-              <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
-              <input type="hidden" name="_subject" value="New project enquiry from portfolio" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_captcha" value="false" />
+            {/* Availability info */}
+            <motion.div
+              variants={rise}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.3 }}
+              custom={1}
+              className="glass rounded-3xl p-6 md:p-7 space-y-4"
+            >
+              <InfoRow
+                icon={<Clock size={16} />}
+                title="Working hours"
+                desc="Mon – Sat · 9:00 – 20:00 IST"
+              />
+              <InfoRow
+                icon={<MapPin size={16} />}
+                title="Based in"
+                desc="India · Working with clients worldwide"
+              />
+              <InfoRow
+                icon={<Globe size={16} />}
+                title="Timezone friendly"
+                desc="Async-first · Overlaps with EU & US mornings"
+              />
+            </motion.div>
 
+            {/* Social channels */}
+            <div className="space-y-3">
+              {[
+                {
+                  href: "mailto:ar.work.freelance@gmail.com",
+                  icon: <Mail size={18} />,
+                  title: "Email",
+                  handle: "ar.work.freelance@gmail.com",
+                },
+                {
+                  href: "https://www.instagram.com/ar.work.freelance",
+                  icon: <Instagram size={18} />,
+                  title: "Instagram",
+                  handle: "@ar.work.freelance",
+                },
+                {
+                  href: "https://www.fiverr.com/s/2KbwPQ8",
+                  icon: <span className="font-black text-sm">fiv</span>,
+                  title: "Fiverr",
+                  handle: "5.0 ★ rated seller",
+                },
+              ].map((s, i) => (
+                <motion.div
+                  key={s.title}
+                  variants={rise}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.4 }}
+                  custom={2 + i}
+                >
+                  <SocialCard {...s} />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT — form */}
+          <motion.form
+            onSubmit={onSubmit}
+            variants={rise}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            custom={1}
+            className="relative glass rounded-3xl p-6 sm:p-8 md:p-10 space-y-5 overflow-hidden"
+          >
+            <div
+              aria-hidden
+              className="absolute -top-24 -right-24 w-[380px] h-[380px] rounded-full pointer-events-none opacity-50 animate-chroma-a"
+              style={{
+                background:
+                  "radial-gradient(circle, oklch(0.65 0.22 250 / 0.35), transparent 65%)",
+                filter: "blur(50px)",
+              }}
+            />
+
+            <div className="relative flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase text-foreground/60 mb-2">
+              <Sparkles size={12} className="text-primary-glow" />
+              Project brief
+            </div>
+
+            {/* honeypot + formsubmit config */}
+            <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
+            <input type="hidden" name="_subject" value="New project enquiry from portfolio" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+
+            <FormRow i={0}>
               <div className="grid sm:grid-cols-2 gap-4 relative">
                 <Field label="Your name">
                   <input required name="name" maxLength={80} placeholder="Jane Doe" className="field" />
@@ -195,31 +330,57 @@ export function Contact() {
                   />
                 </Field>
               </div>
+            </FormRow>
 
+            <FormRow i={1}>
               <Field label="Company / brand (optional)">
                 <input name="company" maxLength={80} placeholder="Acme Studio" className="field" />
               </Field>
+            </FormRow>
 
+            <FormRow i={2}>
               <Field label="Project type">
                 <div className="flex flex-wrap gap-2">
-                  {projectTypes.map((t) => (
-                    <ChipButton key={t} active={type === t} onClick={() => setType(t)}>
-                      {t}
-                    </ChipButton>
+                  {projectTypes.map((t, idx) => (
+                    <motion.div
+                      key={t}
+                      variants={rise}
+                      initial="hidden"
+                      whileInView="show"
+                      viewport={{ once: true, amount: 0.6 }}
+                      custom={idx * 0.4}
+                    >
+                      <ChipButton active={type === t} onClick={() => setType(t)}>
+                        {t}
+                      </ChipButton>
+                    </motion.div>
                   ))}
                 </div>
               </Field>
+            </FormRow>
 
+            <FormRow i={3}>
               <Field label="Budget (USD)">
                 <div className="flex flex-wrap gap-2">
-                  {budgets.map((b) => (
-                    <ChipButton key={b} active={budget === b} onClick={() => setBudget(b)}>
-                      {b}
-                    </ChipButton>
+                  {budgets.map((b, idx) => (
+                    <motion.div
+                      key={b}
+                      variants={rise}
+                      initial="hidden"
+                      whileInView="show"
+                      viewport={{ once: true, amount: 0.6 }}
+                      custom={idx * 0.4}
+                    >
+                      <ChipButton active={budget === b} onClick={() => setBudget(b)}>
+                        {b}
+                      </ChipButton>
+                    </motion.div>
                   ))}
                 </div>
               </Field>
+            </FormRow>
 
+            <FormRow i={4}>
               <Field label="Tell me about the project">
                 <textarea
                   required
@@ -230,7 +391,9 @@ export function Contact() {
                   className="field resize-none"
                 />
               </Field>
+            </FormRow>
 
+            <FormRow i={5}>
               <button
                 type="submit"
                 disabled={status === "sending"}
@@ -251,25 +414,25 @@ export function Contact() {
                   </>
                 )}
               </button>
+            </FormRow>
 
-              <p className="text-[11px] text-foreground/45 text-center">
-                Prefer email? Reach me at{" "}
-                <a
-                  href="mailto:ar.work.freelance@gmail.com"
-                  className="underline underline-offset-2 hover:text-foreground/80"
-                >
-                  ar.work.freelance@gmail.com
-                </a>
+            <p className="text-[11px] text-foreground/45 text-center">
+              Prefer email? Reach me at{" "}
+              <a
+                href="mailto:ar.work.freelance@gmail.com"
+                className="underline underline-offset-2 hover:text-foreground/80"
+              >
+                ar.work.freelance@gmail.com
+              </a>
+            </p>
+
+            {status === "error" && (
+              <p className="text-xs text-destructive text-center">
+                Couldn't send. Please email me directly.
               </p>
-
-              {status === "error" && (
-                <p className="text-xs text-destructive text-center">
-                  Couldn't send. Please email me directly.
-                </p>
-              )}
-            </form>
-          </div>
-        </Reveal>
+            )}
+          </motion.form>
+        </div>
       </div>
 
       <style>{`
@@ -292,6 +455,21 @@ export function Contact() {
         }
       `}</style>
     </section>
+  );
+}
+
+function FormRow({ i, children }: { i: number; children: React.ReactNode }) {
+  return (
+    <motion.div
+      variants={rise}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.3 }}
+      custom={i}
+      className="relative"
+    >
+      {children}
+    </motion.div>
   );
 }
 
