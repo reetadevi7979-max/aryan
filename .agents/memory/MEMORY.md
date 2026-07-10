@@ -1,0 +1,1 @@
+- [TanStack Start → Vite migration](tanstack-start-migration.md) — key patterns for converting TanStack Start/Router SSR apps to Vite+React with wouter
